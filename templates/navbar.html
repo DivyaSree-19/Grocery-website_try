@@ -1,0 +1,128 @@
+<!--
+   https://fontawesome.com/search
+   https://www.iconfinder.com/search/3d-illustrations?q=gril
+-->
+{%include 'header.html'%}
+
+<!--heig-->
+<nav class="navbar navbar-expand-lg bg-white fixed-top" id="heig" style="margin-top:50px; height:80px; margin-left:-20px;margin-left:-67px;">
+  <div class="container-fluid">
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <!-- Vegetables Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{% url 'category_detail' 1 %}" id="navbarDropdownMenuLink1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-carrot icon-style"></i> Vegetables
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+            <li><a class="dropdown-item" href="{% url 'category_detail' 1 %}" >Leafy Green</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 1 %}" >Mushroom</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 1 %}" >Root</a></li>
+          </ul>
+        </li>
+
+        <!-- Fresh Fruit Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-apple-whole icon-style"></i> Fresh Fruit
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+            <li><a class="dropdown-item" href="{% url 'category_detail' 2 %}" >Apple & Stone Fruits</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 2 %}" >Berries</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 2 %}" >Tropical & Exotic</a></li>
+          </ul>
+        </li>
+
+        <!-- Meat Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-drumstick-bite icon-style"></i> Meat
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3">
+            <li><a class="dropdown-item" href="{% url 'category_detail' 3 %}" >Chicken & Poultry</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 3 %}">Meat Gift Baskets</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 3 %}">Red Meat & Steaks</a></li>
+          </ul>
+        </li>
+
+        <!-- Tasty Daily Brand -->
+        <a class="navbar-brand d-none d-lg-flex" href="#" style="font-weight: 800; font-size: 40px;">Tasty Daily</a>
+
+        <!-- Seafood Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-shrimp icon-style"></i> Seafood
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink4">
+            <li><a class="dropdown-item" href="{% url 'category_detail' 6 %}">Fish</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 6 %}">Lobsters</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 6 %}">Other Seafood</a></li>
+          </ul>
+        </li>
+
+        <!-- Baking Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink5" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-bread-slice icon-style"></i> Baking
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink5">
+            <li><a class="dropdown-item" herf="{% url 'category_detail' 7 %}">Bread</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 7 %}">Tortillas</a></li>
+          </ul>
+        </li>
+
+        <!-- Drinks Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink6" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-martini-glass-citrus icon-style"></i> Drinks
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink6">
+            <li><a class="dropdown-item" href="{% url 'category_detail' 8 %}">Juice</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 8 %}">Water</a></li>
+          </ul>
+        </li>
+
+        <!-- Other Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink7" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-dice-four icon-style"></i> Other
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink7">
+            <li><a class="dropdown-item" href="{% url 'category_detail' 9 %}">Milk</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 10 %}">Cheese</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 11 %}">Eggs</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Icons -->
+   
+      <ul class="navbar-nav ms-auto" id="icon">
+   
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}"><i class="fa-solid fa-user icon-style"></i></a>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'search' %}"><i class="fa-solid fa-magnifying-glass icon-style"></i></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'favorites_list' %}"><i class="fa-solid fa-heart icon-style"></i></a>
+        </li>
+
+        <!-- error -->
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'view_cart' %}"><i class="fa-solid fa-cart-shopping icon-style"></i></a>
+        </li>
+    
+      </ul>
+    </div>
+  </div>
+</nav>

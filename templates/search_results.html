@@ -1,0 +1,76 @@
+
+
+{% block label_top %}
+    {% include 'label_top.html' %}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb" style="justify-content: center; margin-top:150px;">
+      <li class="breadcrumb-item "><a href="{% url 'home' %}" style="text-decoration:none;color: #198754; ">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Search</li>
+    </ol>
+ </nav>
+
+
+<h1 class="text-center">What Are You Looking For?</h1>
+
+<br>
+<div class="input-group text-success" style="width:700px;margin-left:430px;border: 2px solid black;border-radius: 5px;">
+    <div style="width:35px;">
+        <a  href="{% url 'search' %}"><i class="fa-solid fa-magnifying-glass icon-style" style="margin-top:10px;margin-left:5px;"></i></a>
+    </div>
+    
+    
+    <div style="width:35px;margin-right:105px;">
+        <form method="GET" action="{% url 'search' %}" style="display: inline-flex; align-items: center;">
+            <input type="text" name="q" placeholder="Search for products..." class="form-control" aria-label="Text input with radio button" style="width:524px;">
+            <button type="submit" class="btn btn-success" style="width:140px; border-radius: 5px;">Search</button>
+        </form>
+    </div>
+    
+  </div>
+
+<br><br>
+<h3 class="text-center">Search Results for "{{ query }}"</h3>
+<div class="container mt-4">
+    {% if results %}
+        <div class="row">
+            {% for product in results %}
+                <div class="col-md-3 mb-4"> <!-- Adjust 'col-md-3' for four items per row -->
+                    <div class="card h-20" style="height: 420px;">
+                        <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+                            <img src="{{ product.image2.url }}" class="card-img-top img-fluid" alt="{{ product.name }}" style="height: 250px; object-fit: cover; width: 100%;">
+                            <div class="card-body">
+                                <h5 class="card-title text-center text-dark">{{ product.name }}</h5>
+                                <h3>Rs {{ product.price }}</h3>
+                                <div class="d-flex justify-content-start my-1">
+                                    <span class="fa fa-star fa-1x" style="color:orange;"></span>
+                                    <span class="fa fa-star fa-1x" style="color:orange;"></span>
+                                    <span class="fa fa-star fa-1x" style="color:orange;"></span>
+                                    <span class="fa fa-star fa-1x" style="color:orange;"></span>
+                                    <span class="fa fa-star fa-1x"></span>
+                                </div>
+                                <form method="post" action="{% url 'add_to_cart' product.id %}" style="position:absolute; bottom:10px; right:8px;">
+                                    {% csrf_token %}
+                                    <button 
+                                        type="submit" 
+                                        class="btn {% if product.stock == 0 %}btn-secondary{% else %}btn-success{% endif %}" 
+                                        {% if product.stock == 0 %}disabled{% endif %}>
+                                        <i class="fa-solid fa-cart-shopping"></i> 
+                                        {% if product.stock == 0 %}Out of Stock{% else %}Add To Cart{% endif %}
+                                    </button>
+                                </form>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No products found matching your search.</p>
+    {% endif %}
+</div>

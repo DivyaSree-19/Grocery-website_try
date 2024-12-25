@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block logout %}
+
+<div class="container-fluid login_min">
+  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+     <ol class="breadcrumb" style="justify-content: center;margin-top:170px;">
+       <li class="breadcrumb-item "><a href="{% url 'home' %}" style="text-decoration:none;color: #198754;">Home</a></li>
+       <li class="breadcrumb-item active" aria-current="page">Logout</li>
+     </ol>
+  </nav>
+
+  <h2>Logout</h2>
+  <p>You have been logged out. <a href="{% url 'login' %}">Login again</a></p>
+{% endblock %}

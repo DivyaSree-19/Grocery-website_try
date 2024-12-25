@@ -1,0 +1,96 @@
+
+{% load static %}
+
+<h1 class="text text-center" style="color:#198754;">Categories</h1>
+<div class="container-fluid" style="height: 370px;">
+    <div class="swiper-container" style="padding: 30px;">
+        <div class="swiper-wrapper" style="left: 10px; padding: 30px; height: 250px;">
+            {% for category in categories %}
+            <div class="swiper-slide">
+                <a href="{% url 'category_detail' category.id %}" class="hover-up" style="text-decoration: none;">
+                    {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}" style="height: 250px; border-radius: 35px;">
+                        <div class="card-body">
+                            <p class="card-text text-center" style="font-weight: bold; font-size: 25px; color: black;">
+                                {{ category.name }}
+                            </p>
+                        </div>
+                    {% else %}
+                        <img src="{% static 'images/default.jpg' %}" alt="Default Image" style="height: 250px; border-radius: 35px;">
+                    {% endif %}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="swiper-button-next" style="margin-top: 590px; color: #198754;"></div>
+    <div class="swiper-button-prev" style="margin-top: 590px; color: #198754;"></div>
+</div>
+
+<style>
+    /* Media Queries for Responsive Design */
+    @media (max-width: 1200px) {
+        .swiper-container {
+            height: auto;
+        }
+        .swiper-slide img {
+            height: 200px;
+        }
+        .card-text {
+            font-size: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .swiper-container {
+            height: auto;
+            padding: 20px;
+        }
+        .swiper-slide img {
+            height: 180px;
+        }
+        .card-text {
+            font-size: 18px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .swiper-container {
+            height: auto;
+            padding: 10px;
+        }
+        .swiper-slide img {
+            height: 150px;
+        }
+        .card-text {
+            font-size: 16px;
+        }
+    }
+</style>
+
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 3, // Default number of slides
+        spaceBetween: 30, // Default space between slides
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        // Responsive breakpoints
+        breakpoints: {
+            1200: {
+                slidesPerView: 3, // 3 slides for larger screens
+                spaceBetween: 30
+            },
+            768: {
+                slidesPerView: 2, // 2 slides for medium-sized screens
+                spaceBetween: 20
+            },
+            576: {
+                slidesPerView: 1, // 1 slide for small screens
+                spaceBetween: 10
+            }
+        }
+    });
+</script>

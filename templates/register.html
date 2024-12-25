@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+
+{% block register %}
+
+ 
+
+<style>
+  @media (max-width: 768px) {
+   .login_min{    
+      height:700px;
+      margin-left:-500px;
+     }
+  }
+ </style>
+
+<div class="container-fluid login_min">
+   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+      <ol class="breadcrumb" style="justify-content: center;margin-top:70px;">
+        <li class="breadcrumb-item "><a href="{% url 'home' %}" style="text-decoration:none;color: #198754;">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Register</li>
+      </ol>
+   </nav>
+   
+  <div class="col-md-offset-4 col-md-4 login_min" style="margin-top:40px; margin-left:550px;width:1400px;">
+     <h2 class="text-success  page-header text-center" style="margin-left:-1000px;">User Registration</h2>
+ 
+  <div class="col-md-offset-4 col-md-4 well">
+     <form method="POST" autocomplete="off">
+       
+      {% if messages %}
+         {% for message in messages %}
+             <div class="alert alert-{{ message.tags }}">
+                {{message}}
+              </div>
+          {% endfor %}
+     {% endif %}
+     {% csrf_token %}
+   
+      {{form.as_p}}
+      <button type="sumbit" class="btn btn-success">Register</button>
+     </form>
+  <div>
+     <a href="{% url 'login' %}">Login up Now</a>
+     </div>
+  </div>
+</div>
+
+</div>
+{% endblock %}

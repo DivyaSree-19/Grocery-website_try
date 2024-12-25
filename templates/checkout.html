@@ -1,0 +1,33 @@
+<!-- checkout.html -->
+
+
+{% block label_top %}
+    {% include 'label_top.html' %}
+{% endblock %}
+
+{% block navbar %} 
+    {% include 'navbar.html'  %}
+{% endblock %}
+
+
+<br>
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" >
+    <ol class="breadcrumb" style="justify-content: center; margin-top:150px;">
+      <li class="breadcrumb-item "><a href="{% url 'home' %}" style="text-decoration:none;color: #198754;">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">checkout</li>
+    </ol>
+ </nav>
+
+<br>
+<br>
+<div class="container" >
+    <h1>Checkout</h1>
+    <p>Thank you for your purchase! l
+
+    </p>
+</div>
+
+{% block footer %}
+    {% include 'footer.html' %}
+{% endblock %}

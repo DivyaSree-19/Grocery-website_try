@@ -1,0 +1,175 @@
+<!-- cart.html -->
+
+
+
+
+{% block label_top %}
+    {% include 'label_top.html' %}
+{% endblock %}
+
+
+<!---************************************************************************************************************---->
+{% block navbar %}
+    {% include 'navbar.html'  %} 
+{% endblock %}
+
+<!---************************************************************************************************************---->
+
+<style>
+   .h1,.h2,.h3{
+      font-family: 'Poppins', sans-serif;
+   }
+</style>
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" >
+    <ol class="breadcrumb" style="justify-content: center; margin-top:150px;">
+      <li class="breadcrumb-item "><a href="{% url 'home' %}" style="text-decoration:none;color: #198754; ">Home</a></li>
+      <li class="breadcrumb-item "><a href="#" style="text-decoration:none;color: #198754;">Cart</a></li>
+    </ol>
+ </nav>
+
+<!-- Page Title -->
+<h1 class="text-center">My Cart</h1>
+
+<div class="container-fluid" style="background:#eff5ee;">
+    <br>
+<!-- Main Container -->
+<div class="container my-5" style="background:white;border-radius:35px;">
+    <br>
+  <div class="row" >
+    <br>
+    <!-- Cart Items Section -->
+    <div class="col-lg-8">
+      <div class="cart-container" >
+        <br>
+        <table class="table" style="width:700px;margin-left:30px;">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Subtotal</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in cart_items %}
+            <tr>
+              <td>{{ item.product.name }}</td>
+              <td>
+                <div class="input-group mb-3" style="width: 120px;">
+                    <button class="btn btn-outline-success minus-btn" type="button" style="height:30px;">-</button>
+                    <input type="text" class="form-control qty-input" value="{{ item.quantity }}" style="text-align: center; height:30px;">
+                    <button class="btn btn-outline-success plus-btn" type="button" style="height:30px;">+</button>
+                </div>
+              </td>
+              <td>₹{{ item.product.price }}</td>
+              <td>₹</td>
+              <td>
+                <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger">Remove</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    
+      </div>
+    </div>
+
+    <!-- Cart Summary Section -->
+    <div class="col-lg-4" >
+      <div class="container" style="margin-left:-100px;border-radius:15px;width:500px;height:700px;border:3px solid black;">
+        <br>
+        <h4>Coupon code</h4>
+        <br>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Coupon code" aria-label="Search" style="background:#eff5ee;width:300px;">
+            <button class="btn btn-outline-success" type="submit" style="width:100px;border-radius:35px;">Apply</button>
+          </form>
+        <hr>
+        <h2>Subtotal: ₹{{ total_price }}</h2>
+        <hr>
+<p>Shipping</p>
+<ul>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+        <label class="form-check-label" for="inlineRadio1">Flat rate: $30.00</label>
+      </div>
+<br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+        <label class="form-check-label" for="inlineRadio2">Free shipping</label>
+      </div>
+<br>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+        <label class="form-check-label" for="inlineRadio3"> Local pickup</label>
+      </div>
+
+<br>
+<br>
+<h3>Shipping to NY.</h3>
+<a href="#">Change address</a>
+<hr>
+        <h4>Total Items: {{ cart_items|length }}</h4>
+        <h4>Total Price:<t><t> ₹{{ total_price }}</h4>
+        <a href="{% url 'checkout' %}" class="btn btn-success w-100">Proceed to Checkout</a>
+    </div>
+    <br>
+    </div>
+  </div>
+</div>
+<br>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            const message = document.getElementById('success-message');
+            if (message) {
+                message.style.transition = 'opacity 0.5s ease';
+                message.style.opacity = '0';
+                setTimeout(() => message.remove(), 500); // Remove the element from the DOM after fading out
+            }
+        }, 1000);
+    
+        const plusButton = document.querySelector('.plus-btn');
+        const minusButton = document.querySelector('.minus-btn');
+        const qtyInput = document.querySelector('.qty-input');
+        const quantityInput = document.getElementById('quantity-input');
+        const addToCartButton = document.getElementById('add-to-cart-button');
+    
+        // Increase quantity
+        plusButton.addEventListener('click', function() {
+            let value = parseInt(qtyInput.value);
+            value = isNaN(value) ? 0 : value;
+            qtyInput.value = value + 1;
+            quantityInput.value = qtyInput.value; // Sync hidden input with visible input
+        });
+    
+        // Decrease quantity
+        minusButton.addEventListener('click', function() {
+            let value = parseInt(qtyInput.value);
+            value = isNaN(value) ? 0 : value;
+            if (value > 1) {
+                qtyInput.value = value - 1;
+            }
+            quantityInput.value = qtyInput.value; // Sync hidden input with visible input
+        });
+    
+        // Handle the "Add to Cart" button click
+        addToCartButton.addEventListener('click', function() {
+            quantityInput.value = qtyInput.value; // Sync before form submission
+            document.getElementById('add-to-cart-form').submit();
+        });
+    });
+    
+</script>
+
+
+{% block footer %}
+    {% include 'footer.html' %}
+{% endblock %}
+
+
+

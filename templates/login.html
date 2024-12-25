@@ -1,0 +1,36 @@
+
+{% extends "index.html" %}
+
+{% block login %}
+<style>
+   @media (max-width: 768px) {
+    .login_min{
+       margin-left:100px;
+      }
+   }
+  </style>
+
+  <div class="container login_min" style=" width:400px;margin-top:20px;" >
+
+    <div class="container-fluid login_min">
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+         <ol class="breadcrumb" style="justify-content: center;margin-top:170px;">
+           <li class="breadcrumb-item "><a href="{% url 'home' %}" style="text-decoration:none;color: #198754;">Home</a></li>
+           <li class="breadcrumb-item active" aria-current="page">Register</li>
+         </ol>
+      </nav>
+    
+    <h2 class="text-success text-center " style="margin-top:20px;margin-left:15px; ">Login</h2>
+      <form method="post" action="{% url 'login' %}" style="margin-left:50px; ">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success ">Login</button>
+        </form>
+        <div style="margin-top:10px;margin-left:50px;">
+          <a href="{% url 'register' %}">Sign up Now</a>
+        </div>
+  </div>
+{% endblock %}
+
+
+

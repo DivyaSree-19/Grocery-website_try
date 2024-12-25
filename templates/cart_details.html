@@ -1,0 +1,114 @@
+{% include 'index.html' %}
+{% block label_top %}
+    {% include 'label_top.html' %}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+<!--
+<div class="container bg-white p-3 " style="max-width: 1200px;margin-top:50px;">
+    <div class="row g-3">
+        <div class="col-md-6">
+-->
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" >
+    <ol class="breadcrumb" style="justify-content: center; margin-top:150px;">
+      <li class="breadcrumb-item "><a href="{% url 'home' %}" style="text-decoration:none;color: #198754; ">Home</a></li>
+      <li class="breadcrumb-item "><a href="#" style="text-decoration:none;color: #198754;">Cart</a></li>
+    </ol>
+ </nav>
+
+<div class="container-fluid d-flex justify-content-center align-items-center flex-wrap " style="background-color:#D6EFD8;min-height: 100vh;">
+    <div class="container bg-white p-3  " style="max-width: 1200px;margin-top:50px;">
+        <div class="row g-3" >
+            <div class="col-md-8">
+              <h1 class="text-success">Your Cart</h1>
+             
+              <table class="table table-borded">
+                 <tr>
+                    
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Delete</th>
+                 </tr>
+                 {% for item in cart.items.all %}
+                 <tr>
+                    <td><img src="{{ item.product.image2.url }}" style="height:60px;width:60px;"></img>  {{ item.product.name }}</td>
+                    <td>
+                         <div class="input-group mb-3 " style="width: 120px;">
+                           <button class="btn btn-outline-success minus-btn" type="button" style="height:30px;text-top:10px;">-</button>
+                           <input type="text" class="form-control qty-input" value="1" style="text-align: center;height:30px;">
+                           <button class="btn btn-outline-success plus-btn" type="button" style="height:30px;">+</button>
+                        </div>
+                    </td>
+                    <td>{{ item.product.price }}</td>
+                    <td><a href="#" class="btn btn-danger">Delete</a></td>
+                 </tr>
+                 {% endfor %}
+              </table>
+            </div>
+            <!-- bills -->
+            <div class=" col-md-4" style="border-radius:22px;border:thin solid black;" >
+                <div class="container">
+                {% for item in cart.items.all %}
+                   <h2 class=" p-4 " style="font-weight:100;">Coupon Code</h2>
+                   <hr>
+                   <h2  style="font-weight:250;">Subtotal</h2>
+                   <h3> {{ item.product.price }}</h3>
+
+                {% endfor %}
+                </div>
+             </div>
+
+              <ul>
+              {% for item in cart.items.all %}
+              <li>
+                {{ item.product.name }} - Quantity: {{ item.quantity }} - Price: {{ item.product.price }}
+              </li>
+             {% endfor %}
+             </ul>
+             <p>Total: {{ cart.items.all|length }} items</p>
+           
+
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const plusButtons = document.querySelectorAll('.plus-btn');
+        const minusButtons = document.querySelectorAll('.minus-btn');
+        const qtyInputs = document.querySelectorAll('.qty-input');
+
+        plusButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('.qty-input');
+                let value = parseInt(input.value);
+                value = isNaN(value) ? 0 : value;
+                input.value = value + 1;
+            });
+        });
+
+        minusButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('.qty-input');
+                let value = parseInt(input.value);
+                value = isNaN(value) ? 0 : value;
+                if (value > 1) {
+                    input.value = value - 1;
+                }
+            });
+        });
+    });
+</script>
+
+{% block footer %}
+    {% include 'footer.html' %}
+{% endblock %}
+
+

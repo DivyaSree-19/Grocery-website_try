@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+
+<!-- profile.html -->
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Profile: {{ user.username }}</h1>
+
+    {% if dashboard == 'customer' %}
+        {% include 'dashboards/customer_dashboard.html' %}
+    {% elif dashboard == 'admin' %}
+        {% include 'dashboards/admin_dashboard.html' %}
+    {% elif dashboard == 'manager' %}
+        {% include 'dashboards/manager_dashboard.html' %}
+    {% elif dashboard == 'staff' %}
+        {% include 'dashboards/staff_dashboard.html' %}
+    {% else %}
+        <p>You do not have a specific dashboard assigned.</p>
+    {% endif %}
+</div>
+{% endblock %}
