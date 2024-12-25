@@ -130,6 +130,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIR = [
     BASE_DIR / "static",
 ]
+STATICFILES_DIRS = [BASE_DIR / "static"]  # Directory for your local static files
+STATIC_ROOT = BASE_DIR / 'staticfiles' 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Add at the end of settings.py
