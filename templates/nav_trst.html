@@ -1,0 +1,226 @@
+<!--
+   https://fontawesome.com/search
+   https://www.iconfinder.com/search/3d-illustrations?q=gril
+-->
+{%include 'header.html'%}
+
+<!--heig-->
+<nav class="navbar navbar-expand-lg bg-white fixed-top" id="heig" style="margin-top:50px; height:80px; margin-left:-20px;margin-left:-67px;">
+  <div class="container-fluid">
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <!-- Vegetables Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{% url 'category_detail' 1 %}" id="navbarDropdownMenuLink1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-carrot icon-style"></i> Vegetables
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+            <li><a class="dropdown-item" href="{% url 'category_detail' 1 %}" >Leafy Green</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 1 %}" >Mushroom</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 1 %}" >Root</a></li>
+          </ul>
+        </li>
+
+        <!-- Fresh Fruit Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-apple-whole icon-style"></i> Fresh Fruit
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+            <li><a class="dropdown-item" href="{% url 'category_detail' 2 %}" >Apple & Stone Fruits</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 2 %}" >Berries</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 2 %}" >Tropical & Exotic</a></li>
+          </ul>
+        </li>
+
+        <!-- Meat Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-drumstick-bite icon-style"></i> Meat
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3">
+            <li><a class="dropdown-item" href="{% url 'category_detail' 3 %}" >Chicken & Poultry</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 3 %}">Meat Gift Baskets</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 3 %}">Red Meat & Steaks</a></li>
+          </ul>
+        </li>
+
+        <!-- Tasty Daily Brand -->
+        <a class="navbar-brand d-none d-lg-flex" href="#" style="font-weight: 800; font-size: 40px;">Tasty Daily</a>
+
+        <!-- Seafood Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-shrimp icon-style"></i> Seafood
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink4">
+            <li><a class="dropdown-item" href="{% url 'category_detail' 6 %}">Fish</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 6 %}">Lobsters</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 6 %}">Other Seafood</a></li>
+          </ul>
+        </li>
+
+        <!-- Baking Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink5" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-bread-slice icon-style"></i> Baking
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink5">
+            <li><a class="dropdown-item" herf="{% url 'category_detail' 7 %}">Bread</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 7 %}">Tortillas</a></li>
+          </ul>
+        </li>
+
+        <!-- Drinks Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink6" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-martini-glass-citrus icon-style"></i> Drinks
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink6">
+            <li><a class="dropdown-item" href="{% url 'category_detail' 8 %}">Juice</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 8 %}">Water</a></li>
+          </ul>
+        </li>
+
+        <!-- Other Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink7" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-dice-four icon-style"></i> Other
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink7">
+            <li><a class="dropdown-item" href="{% url 'category_detail' 9 %}">Milk</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 10 %}">Cheese</a></li>
+            <li><a class="dropdown-item" href="{% url 'category_detail' 11 %}">Eggs</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Icons -->
+   
+      <ul class="navbar-nav ms-auto" id="icon">
+   
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}"><i class="fa-solid fa-user icon-style"></i></a>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'search' %}"><i class="fa-solid fa-magnifying-glass icon-style"></i></a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'favorites_list' %}"><i class="fa-solid fa-heart icon-style"></i></a>
+        </li>
+
+        <!-- error -->
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'view_cart' %}"><i class="fa-solid fa-cart-shopping icon-style"></i></a>
+        </li>
+    
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+#heig {
+
+    height: 60px; /* Example height */
+    
+  }
+
+  #heig .navbar-nav{
+     margin-bottom: 5px;
+     margin-left: 250px;
+  }
+
+#heig .nav-link{
+    padding-right: 20;
+    font-size: 18px;
+    color: black;
+    font-weight: 500;
+    margin-top: 16px;
+    
+}
+
+#heig .dropdown-toggle::after {
+    display: none !important; /* Important to override Bootstrap styles */
+  }
+
+#navbarNav{
+    justify-content: center;
+}
+#heig #brand{
+    margin-bottom: 20px;
+}
+
+
+
+#heig #navbarNav .dropdown-menu {
+    background-color:  #198754; /* Set the background color of the dropdown menu */
+  }
+  
+  #heig #navbarNav .dropdown-item {
+    color: white;
+  }
+  
+  #heig #navbarNav .dropdown-item:hover {
+    background-color:white !important; 
+    color: #060606; /* Change the color on hover if desired ------------------------------------------------------------*/
+  }
+  
+  #icon li{
+    margin-top: -10px;
+}
+
+/* Default icon style */
+.icon-style {
+  color: #000000; /* Default color */
+  font-size: 24px;
+  margin-right: px;
+  transition: color 0.3s ease; /* Transition for smooth color change */
+}
+
+/* Hover effect */
+.icon-style:hover {
+  color:#198754 ; /* Change color to white on hover */
+}
+
+
+  
+
+
+
+ 
+        
+
+
+{% load static %}
+<div class="container-fluid" style="width:100vw; height:672px; overflow:hidden; overflow-x:hidden; position: relative; margin-top:60px;">
+  <img alt="bg" class="bg-img bg-1 position-absolute" src="{% static 'images/bg7.png' %}" style="height: 650px; width: auto; object-fit: contain; left:-40px; margin-top:40px;">
+
+  <div class="container text-center" style="width:700px; height:450px; overflow:hidden; position:absolute;top:180px; left:500px;" > 
+    <div class="text-container">
+      <h1 class="display-4 text-dark"  style=" overflow:hidden;">Order Your Daily Groceries</h1>
+      <p class="text-success h5 mt-3" style=" overflow:hidden;">#Free Delivery</p>
+      <form class="d-flex justify-content-center mt-4">
+        <input class="form-control me-2" type="search" placeholder="Search your daily groceries" aria-label="Search" required>
+        <button class="btn btn-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+  
+  <img alt="bg" class="bg-img bg-1 position-absolute" src="{% static 'images/bg8.png' %}" style="height: 100%; width: auto; object-fit: contain;top:150px; left:1140px; top:1px; opacity:0.5">
+
+</div>
+
