@@ -1,79 +1,101 @@
-{% load static %}
-<div class="container-fluid" style="width:100vw; height:672px; overflow:hidden; overflow-x:hidden; position: relative; margin-top:60px;">
+{%load static%}
+
+<div class="container-fluid" style="width:100vw; height:760px; overflow:hidden; position:relative; margin-top:0;">
   <!-- Desktop Image -->
   <img alt="bg" class="bg-img bg-desktop position-absolute" 
        src="{% static 'images/bg7.png' %}" 
-       style="height: 650px; width: auto; object-fit: contain; left:-40px; margin-top:40px;">
+       style="height:650px; width:500px; object-fit:cover; top:0; left:-180px;margin-top:100px;">
 
-       <div class="container text-center" style="width:700px; height:450px; overflow:hidden; position:absolute;top:180px; left:500px;"> 
-        <div class="text-container">
-          <h1 class="display-4 text-dark" style="overflow:hidden;">Order Your Daily Groceries</h1>
-          <p class="text-success h5 mt-3" style="overflow:hidden;">#Free Delivery</p>
-          <form class="d-flex justify-content-center mt-4">
-            <input class="form-control me-2" type="search" placeholder="Search your daily groceries" aria-label="Search" required>
-            <button class="btn btn-success" type="submit">Search</button>
+       <div class="container text-center bg-desktop py-5" style="margin-top:200px; ">
+        <div class="row">
+          <div class="col-12">
+            <h1 class="h1 text-dark">Order Your Daily Groceries</h1>
+            <p class="text-success h4 mt-3">#Free Delivery</p>
+            <form action="{% url 'search' %}" method="GET" class="d-flex justify-content-center flex-wrap mt-4">
+              <input
+                  name="q"
+                  class="form-control me-2 mb-2"
+                  style="max-width: 300px;"
+                  type="search"
+                  placeholder="Search your daily groceries"
+                  aria-label="Search"
+                  required
+              >
+              <button class="btn btn-success mb-2" type="submit">Search</button>
           </form>
+          
+          </div>
         </div>
       </div>
+      
 
-       <img alt="bg" class="bg-img bg-desktop position-absolute" 
-          src="{% static 'images/bg8.png' %}" 
-          style="height: 100%; width: auto; object-fit: contain;top:150px; left:1140px; top:1px; opacity:0.5">
+  <img alt="bg" class="bg-img bg-desktop position-absolute" 
+       src="{% static 'images/bg8.png' %}" 
+       style="height:650px; width:auto; object-fit:cover; top:0; right:0; opacity:0.5;margin-top:100px;">
 
   <!-- Mobile Image -->
   <img alt="bg" class="bg-img bg-mobile position-absolute" 
-  src="{% static 'images/bg8_up.png' %}" 
-  style="hheight:280px;width:450px;margin-top:50px; object-fit: contain; opacity:0.5">
+       src="{% static 'images/bg8_up.png' %}" 
+       style="height:280px;width:450;margin-top:90px; object-fit: contain; opacity:0.5">
 
-
-
-  <div class="container text-center bg-mobile" style="width:300px; height:250px; overflow:hidden; position:absolute;top:180px; left:95px;"> 
+       <div class="container text-center bg-mobile" 
+       style="width:300px; height:auto; position:absolute; top:10px; left:250px; transform:translateX(-50%);">
     <div class="text-container">
-      <h1 class="display-4 text-dark" style="overflow:hidden;">Order Your Daily Groceries</h1>
-      <p class="text-success h5 mt-3" style="overflow:hidden;">#Free Delivery</p>
-      <form class="d-flex justify-content-center mt-4">
-        <input class="form-control me-2" type="search" placeholder="Search your daily groceries" aria-label="Search" required>
+      <h1 class="h5 text-dark">Order Your Daily Groceries</h1>
+      <p class="text-success h6 mt-3">#Free Delivery</p>
+      <form action="{% url 'search' %}" method="GET" class="d-flex justify-content-center mt-4">
+        <input
+            name="q"
+            class="form-control me-2"
+            type="search"
+            placeholder="Search your daily groceries"
+            aria-label="Search"
+            required
+        >
         <button class="btn btn-success" type="submit">Search</button>
-      </form>
+    </form>
+    
     </div>
   </div>
   <img alt="bg" class="bg-img bg-mobile position-absolute" 
        src="{% static 'images/bg7_down.png' %}" 
-       style="height:280px;width:450px;margin-top:380px;">
-
+       style="height:280px;width:450px;margin-top:400px;">
 </div>
 
 <!-- CSS for Different Views -->
 <style>
-  /* Desktop View */
-  @media (min-width: 768px) {
-    .bg-desktop {
-      display: block;
-    }
-    .bg-mobile {
-      display: none;
-    }
-  }
+ /* Mobile View (Default) */
+.bg-desktop {
+  display: none;
 
-  /* Mobile View */
-  @media (max-width: 767px) {
-    .bg-desktop {
-      display: none;
-    }
-    .bg-mobile {
-      display: block;
-      width: 100vw;
-      height: auto;
-      object-fit: cover;
-      position: absolute;
-      left: 0;
-      top: 0;
-    }
+}
+.bg-mobile {
+  display: block;
+}
+.bg-img {
+  object-fit: cover;
+}
+
+/* Mobile text container centering */
+.bg-mobile .text-container {
+  width: 90%; /* Adjust width for better responsiveness */
+  padding: 0 15px; /* Add padding for better alignment */
+  text-align: center; /* Keep text centered */
+  position: absolute;
+  top: 250px;
+  left: 50%; /* Start from the center */
+  transform: translateX(-50%); /* Adjust to perfectly center */
+}
+
+
+/* Desktop View */
+@media (min-width: 768px) {
+  .bg-desktop {
+    display: block;
   }
+  .bg-mobile {
+    display: none;
+  }
+}
+
 </style>
-
-
-
-
-
-

@@ -1,22 +1,24 @@
-
 {% load static %}
 
-<h1 class="text text-center" style="color:#198754;">Categories</h1>
-<div class="container-fluid" style="height: 370px;">
-    <div class="swiper-container" style="padding: 30px;">
-        <div class="swiper-wrapper" style="left: 10px; padding: 30px; height: 250px;">
+
+<h1 class="text text-center" style="color: #198754;">Categories</h1>
+
+<!-- Container with 100% width and overflow hidden to prevent sidebars -->
+<div class="container-fluid" style="height: 350px; max-width: 100%; overflow-x: hidden; padding: 0;">
+    <div class="swiper-container" style="padding: 0;">
+        <div class="swiper-wrapper">
             {% for category in categories %}
-            <div class="swiper-slide">
+            <div class="swiper-slide" style="box-sizing: border-box; padding: 10px;">
                 <a href="{% url 'category_detail' category.id %}" class="hover-up" style="text-decoration: none;">
                     {% if category.image %}
-                        <img src="{{ category.image.url }}" alt="{{ category.name }}" style="height: 250px; border-radius: 35px;">
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}" style="width: 100%; max-height: 250px; object-fit: cover; border-radius: 15px;">
                         <div class="card-body">
                             <p class="card-text text-center" style="font-weight: bold; font-size: 25px; color: black;">
                                 {{ category.name }}
                             </p>
                         </div>
                     {% else %}
-                        <img src="{% static 'images/default.jpg' %}" alt="Default Image" style="height: 250px; border-radius: 35px;">
+                        <img src="{% static 'images/default.jpg' %}" alt="Default Image" style="width: 100%; max-height: 250px; object-fit: cover; border-radius: 15px;">
                     {% endif %}
                 </a>
             </div>
@@ -24,11 +26,42 @@
         </div>
     </div>
 
-    <div class="swiper-button-next" style="margin-top: 590px; color: #198754;"></div>
-    <div class="swiper-button-prev" style="margin-top: 590px; color: #198754;"></div>
+    <!-- Navigation Buttons -->
+    <div class="swiper-button-next" style="color: #198754;margin-top:-100px;"></div>
+    <div class="swiper-button-prev" style="color: #198754;margin-top:-100px;"></div>
 </div>
 
 <style>
+    /* Remove padding/margin globally to prevent overflow and sidebars */
+    body, html {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Prevent horizontal scroll */
+    }
+
+    .container-fluid {
+        padding: 0; /* Remove padding from container */
+        overflow-x: hidden; /* Prevent sidebars */
+    }
+
+    /* Ensure swiper and swiper-slide are fluid and responsive */
+    .swiper-container {
+        width: 100%; /* Ensure the container takes full width */
+        padding: 10px 0;
+    }
+
+    .swiper-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .swiper-slide img {
+        width: 100%;
+        max-width: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
     /* Media Queries for Responsive Design */
     @media (max-width: 1200px) {
         .swiper-container {
@@ -80,15 +113,15 @@
         // Responsive breakpoints
         breakpoints: {
             1200: {
-                slidesPerView: 3, // 3 slides for larger screens
+                slidesPerView: 3,
                 spaceBetween: 30
             },
             768: {
-                slidesPerView: 2, // 2 slides for medium-sized screens
+                slidesPerView: 2,
                 spaceBetween: 20
             },
             576: {
-                slidesPerView: 1, // 1 slide for small screens
+                slidesPerView: 1,
                 spaceBetween: 10
             }
         }

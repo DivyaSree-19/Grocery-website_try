@@ -14,7 +14,19 @@
 
 <!--*********************************************************************************************-->
 
+
     <style>
+       
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .product-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
         .product-image {
             height: 600px;
             width: 100%;
@@ -40,9 +52,21 @@
                 width: 100%;
             }
         }
+        @media (min-width: 768px) {
+            .row {
+                display: flex;
+                gap: 20px;
+            }
+            .col-6 {
+                flex: 0 0 50%;
+            }
+        }
     </style>
 
-    {% if messages %}
+<div class="container">
+    <div class="row">
+         
+{% if messages %}
     <div>
         {% for message in messages %}
         <div class="alert alert-{{ message.tags }} d-flex align-items-center" role="alert" id="success-message" style="margin-top:150px; margin-left:1000px;">
@@ -71,9 +95,9 @@
                 <div class="col-md-6">
                     <img src="{{ product.image2.url }}" class="product-image" alt="{{ product.name }}">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" style="margin-top:-620px;margin-left:540px;">
                     <h1 class="text-success" style="font-size: 60px;">{{ product.name }}</h1>
-                    <p style="font-size: 20px;">{{ product.name }} can be stored in the refrigerator for up to a month if stored properly.</p>
+                    <p style="font-size: 20px;width:400px;">{{ product.name }} can be stored in the refrigerator for up to a month if stored properly.</p>
                     <p class="text-success" style="font-size: 40px;">Rs {{ product.price }}</p>
 
 
@@ -108,7 +132,7 @@
                         </button>
                     </form>
 
-                    <a href="#"><button class="btn btn-outline-success " style="border-radius:50px;height:60px;width:380px;margin-left:-380px;">Buy Now</button></a>
+                    <a href="#"><button class="btn btn-outline-success " style="border-radius:50px;height:60px;width:370px;margin-left:-365px;">Buy Now</button></a>
 
                     <div class="alert alert-custom mt-3 d-flex align-items-center" role="alert" style="height:70px;">
                         <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
@@ -171,7 +195,19 @@
         </div>
     </div>
     </div>
+    </div>
+</div>
 
+                
+            
+
+            
+            
+            
+            
+          
+        </div>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
@@ -230,6 +266,7 @@
         });
         
     </script>
+
     
 
     {% block footer %}

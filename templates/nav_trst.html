@@ -224,3 +224,554 @@
 
 </div>
 
+
+{% load static %}
+<div class="container-fluid" style="width:100vw; height:672px; overflow:hidden; overflow-x:hidden; position: relative; margin-top:60px;">
+  <!-- Desktop Image -->
+       <img alt="bg" class="bg-img bg-desktop position-absolute" 
+       src="{% static 'images/bg7.png' %}" 
+       style="height: 650px; width: auto; object-fit: contain; left:-40px; margin-top:40px;">
+
+       <div class="container text-center" style="width:700px; height:450px; overflow:hidden; position:absolute;top:180px; left:500px;"> 
+        <div class="text-container">
+          <h1 class="display-4 text-dark" style="overflow:hidden;">Order Your Daily Groceries</h1>
+          <p class="text-success h5 mt-3" style="overflow:hidden;">#Free Delivery</p>
+          <form class="d-flex justify-content-center mt-4">
+            <input class="form-control me-2" type="search" placeholder="Search your daily groceries" aria-label="Search" required>
+            <button class="btn btn-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+
+       <img alt="bg" class="bg-img bg-desktop position-absolute" 
+          src="{% static 'images/bg8.png' %}" 
+          style="height: 100%; width: auto; object-fit: contain;top:150px; left:1140px; top:1px; opacity:0.5">
+
+  <!-- Mobile Image -->
+  <img alt="bg" class="bg-img bg-mobile position-absolute" 
+  src="{% static 'images/bg8_up.png' %}" 
+  style="height:280px;width:100;margin-top:50px; object-fit: contain; opacity:0.5">
+
+
+
+  <div class="container text-center bg-mobile" style="width:300px; height:250px; overflow:hidden; position:absolute;top:180px; left:95px;"> 
+    <div class="text-container">
+      <h1 class="display-4 text-dark" style="overflow:hidden;">Order Your Daily Groceries</h1>
+      <p class="text-success h5 mt-3" style="overflow:hidden;">#Free Delivery</p>
+      <form class="d-flex justify-content-center mt-4">
+        <input class="form-control me-2" type="search" placeholder="Search your daily groceries" aria-label="Search" required>
+        <button class="btn btn-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+  <img alt="bg" class="bg-img bg-mobile position-absolute" 
+       src="{% static 'images/bg7_down.png' %}" 
+       style="height:280px;width:450px;margin-top:380px;">
+
+</div>
+
+<!-- CSS for Different Views -->
+<style>
+  /* Desktop View */
+  @media (min-width: 768px) {
+    .bg-desktop {
+      display: block;
+    }
+    .bg-mobile {
+      display: none;
+    }
+  }
+  
+  /* Mobile View */
+  @media (max-width: 767px) {
+    .bg-desktop {
+      display: none;
+    }
+    .bg-mobile {
+      display: block;
+      width: 100vw;
+      height: auto; /* Make sure the height adjusts properly on mobile */
+      object-fit: cover; /* Adjust image aspect ratio */
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+  
+</style>
+------------------
+new 
+
+
+{% load static %}
+<div class="container-fluid" style="width:100vw; height:672px; overflow:hidden; overflow-x:hidden; position: relative; margin-top:60px;">
+  <!-- Desktop Image -->
+       <img alt="bg" class="bg-img bg-desktop position-absolute" 
+       src="{% static 'images/bg7.png' %}" 
+       style="height: 650px; width: auto; object-fit: contain; left:-40px; margin-top:40px;">
+
+       <div class="container text-center" style="width:700px; height:450px; overflow:hidden; position:absolute; top:180px; left:500px;">
+        <div class="text-container">
+          <h1 class="display-4 text-dark" style="overflow:hidden;">Order Your Daily Groceries</h1>
+          <p class="text-success h5 mt-3" style="overflow:hidden;">#Free Delivery</p>
+          <form class="d-flex justify-content-center mt-4">
+            <input class="form-control me-2" type="search" placeholder="Search your daily groceries" aria-label="Search" required>
+            <button class="btn btn-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+       <img alt="bg" class="bg-img bg-desktop position-absolute" 
+          src="{% static 'images/bg8.png' %}" 
+          style="height: 100%; width: auto; object-fit: contain;top:150px; left:1140px; top:1px; opacity:0.5">
+
+  <!-- Mobile Image -->
+  <img alt="bg" class="bg-img bg-mobile position-absolute" 
+  src="{% static 'images/bg8_up.png' %}" 
+  style="height:280px;width:450;margin-top:50px; object-fit: contain; opacity:0.5">
+
+
+
+  <div class="container text-center bg-mobile" style="width:300px; height:250px; overflow:hidden; position:absolute;top:180px; left:95px;"> 
+    <div class="text-container">
+      <h1 class="display-4 text-dark" style="overflow:hidden;">Order Your Daily Groceries</h1>
+      <p class="text-success h5 mt-3" style="overflow:hidden;">#Free Delivery</p>
+      <form class="d-flex justify-content-center mt-4">
+        <input class="form-control me-2" type="search" placeholder="Search your daily groceries" aria-label="Search" required>
+        <button class="btn btn-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+  <img alt="bg" class="bg-img bg-mobile position-absolute" 
+       src="{% static 'images/bg7_down.png' %}" 
+       style="height:280px;width:450px;margin-top:380px;">
+
+</div>
+
+<!-- CSS for Different Views -->
+<style>
+  /* Desktop View */
+  @media (min-width: 768px) {
+    .bg-desktop {
+      display: block;
+    }
+    .bg-mobile {
+      display: none;
+    }
+  }
+  
+  /* Mobile View */
+  @media (max-width: 767px) {
+    .bg-desktop {
+      display: none;
+    }
+    .bg-mobile {
+      display: block;
+      width: 100vw;
+      height: auto; /* Make sure the height adjusts properly on mobile */
+      object-fit: cover; /* Adjust image aspect ratio */
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+  
+</style>
+]]]]
+{% load static %}
+
+
+<h1 class="text text-center" style="color: #198754;">Categories</h1>
+
+<!-- Container with 100% width and overflow hidden to prevent sidebars -->
+<div class="container-fluid" style="height: 350px; max-width: 100%; overflow-x: hidden; padding: 0;">
+    <div class="swiper-container" style="padding: 0;">
+        <div class="swiper-wrapper">
+            {% for category in categories %}
+            <div class="swiper-slide" style="box-sizing: border-box; padding: 10px;">
+                <a href="{% url 'category_detail' category.id %}" class="hover-up" style="text-decoration: none;">
+                    {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}" style="width: 100%; max-height: 250px; object-fit: cover; border-radius: 15px;">
+                        <div class="card-body">
+                            <p class="card-text text-center" style="font-weight: bold; font-size: 25px; color: black;">
+                                {{ category.name }}
+                            </p>
+                        </div>
+                    {% else %}
+                        <img src="{% static 'images/default.jpg' %}" alt="Default Image" style="width: 100%; max-height: 250px; object-fit: cover; border-radius: 15px;">
+                    {% endif %}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="swiper-button-next" style="color: #198754;margin-top:-100px;"></div>
+    <div class="swiper-button-prev" style="color: #198754;margin-top:-100px;"></div>
+</div>
+
+<style>
+    /* Remove padding/margin globally to prevent overflow and sidebars */
+    body, html {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Prevent horizontal scroll */
+    }
+
+    .container-fluid {
+        padding: 0; /* Remove padding from container */
+        overflow-x: hidden; /* Prevent sidebars */
+    }
+
+    /* Ensure swiper and swiper-slide are fluid and responsive */
+    .swiper-container {
+        width: 100%; /* Ensure the container takes full width */
+        padding: 10px 0;
+    }
+
+    .swiper-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .swiper-slide img {
+        width: 100%;
+        max-width: 100%;
+        object-fit: cover;
+        border-radius: 15px;
+    }
+
+    /* Media Queries for Responsive Design */
+    @media (max-width: 1200px) {
+        .swiper-container {
+            height: auto;
+        }
+        .swiper-slide img {
+            height: 200px;
+        }
+        .card-text {
+            font-size: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .swiper-container {
+            height: auto;
+            padding: 20px;
+        }
+        .swiper-slide img {
+            height: 180px;
+        }
+        .card-text {
+            font-size: 18px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .swiper-container {
+            height: auto;
+            padding: 10px;
+        }
+        .swiper-slide img {
+            height: 150px;
+        }
+        .card-text {
+            font-size: 16px;
+        }
+    }
+</style>
+
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 3, // Default number of slides
+        spaceBetween: 30, // Default space between slides
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        // Responsive breakpoints
+        breakpoints: {
+            1200: {
+                slidesPerView: 3,
+                spaceBetween: 30
+            },
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 20
+            },
+            576: {
+                slidesPerView: 1,
+                spaceBetween: 10
+            }
+        }
+    });
+</script>
+
+
+.read-more-btn-container {
+           
+  margin-top:-130px;
+  margin-left:-270px;
+  width: 500px;
+  height: 105px;
+}
+.read-more{
+  hegiht:100px;
+  width:120px;
+  
+}
+
+
+
+>>>
+
+{% load static %}
+
+<h1 class="text text-center" style="color:#198754;">Categories</h1>
+<div class="container-fluid" style="height: 370px;">
+    <div class="swiper-container" style="padding: 30px;">
+        <div class="swiper-wrapper" style="left: 10px; padding: 30px; height: 250px;">
+            {% for category in categories %}
+            <div class="swiper-slide">
+                <a href="{% url 'category_detail' category.id %}" class="hover-up" style="text-decoration: none;">
+                    {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}" style="height: 250px; border-radius: 35px;">
+                        <div class="card-body">
+                            <p class="card-text text-center" style="font-weight: bold; font-size: 25px; color: black;">
+                                {{ category.name }}
+                            </p>
+                        </div>
+                    {% else %}
+                        <img src="{% static 'images/default.jpg' %}" alt="Default Image" style="height: 250px; border-radius: 35px;">
+                    {% endif %}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="swiper-button-next" style="margin-top: 590px; color: #198754;"></div>
+    <div class="swiper-button-prev" style="margin-top: 590px; color: #198754;"></div>
+</div>
+
+<style>
+    /* Media Queries for Responsive Design */
+    @media (max-width: 1200px) {
+        .swiper-container {
+            height: auto;
+        }
+        .swiper-slide img {
+            height: 200px;
+        }
+        .card-text {
+            font-size: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .swiper-container {
+            height: auto;
+            padding: 20px;
+        }
+        .swiper-slide img {
+            height: 180px;
+        }
+        .card-text {
+            font-size: 18px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .swiper-container {
+            height: auto;
+            padding: 10px;
+        }
+        .swiper-slide img {
+            height: 150px;
+        }
+        .card-text {
+            font-size: 16px;
+        }
+    }
+</style>
+
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 3, // Default number of slides
+        spaceBetween: 30, // Default space between slides
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        // Responsive breakpoints
+        breakpoints: {
+            1200: {
+                slidesPerView: 3, // 3 slides for larger screens
+                spaceBetween: 30
+            },
+            768: {
+                slidesPerView: 2, // 2 slides for medium-sized screens
+                spaceBetween: 20
+            },
+            576: {
+                slidesPerView: 1, // 1 slide for small screens
+                spaceBetween: 10
+            }
+        }
+    });
+</script>
+
+
+
+-----
+{% load static %}
+<div class="container-fluid" style="width:100vw; height:100vh; overflow:hidden; position:relative; margin-top:0;">
+  <!-- Desktop Image -->
+  <img alt="bg" class="bg-img bg-desktop position-absolute" 
+       src="{% static 'images/bg7.png' %}" 
+       style="height:650px; width:auto; object-fit:cover; top:0; left:0;margin-top:100px;">
+
+  <div class="container text-center bg-desktop" 
+       style="width:700px; height:450px; position:absolute; top:180px; left:50%; transform:translateX(-50%);">
+    <div class="text-container">
+      <h1 class="display-4 text-dark">Order Your Daily Groceries</h1>
+      <p class="text-success h5 mt-3">#Free Delivery</p>
+      <form class="d-flex justify-content-center mt-4">
+        <input class="form-control me-2" type="search" placeholder="Search your daily groceries" aria-label="Search" required>
+        <button class="btn btn-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <img alt="bg" class="bg-img bg-desktop position-absolute" 
+       src="{% static 'images/bg8.png' %}" 
+       style="height:650px; width:auto; object-fit:cover; top:0; right:0; opacity:0.5;margin-top:100px;">
+
+  <!-- Mobile Image -->
+  <img alt="bg" class="bg-img bg-mobile position-absolute" 
+       src="{% static 'images/bg8_up.png' %}" 
+       style="width:100%; height:auto; object-fit:cover; opacity:0.5; top:50px;">
+
+  <div class="container text-center bg-mobile" 
+       style="width:300px; height:auto; position:absolute; top:250px; left:50%; transform:translateX(-50%);">
+    <div class="text-container">
+      <h1 class="h5 text-dark">Order Your Daily Groceries</h1>
+      <p class="text-success h6 mt-3">#Free Delivery</p>
+      <form class="d-flex justify-content-center mt-4">
+        <input class="form-control me-2" type="search" placeholder="Search your daily groceries" aria-label="Search" required>
+        <button class="btn btn-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <img alt="bg" class="bg-img bg-mobile position-absolute" 
+       src="{% static 'images/bg7_down.png' %}" 
+       style="width:100%; height:auto; object-fit:cover; bottom:0;">
+</div>
+
+<!-- CSS for Different Views -->
+<style>
+  /* Mobile View (Default) */
+  .bg-desktop {
+    display: none;
+  }
+  .bg-mobile {
+    display: block;
+  }
+  .bg-img {
+    object-fit: cover;
+  }
+
+  /* Desktop View */
+  @media (min-width: 768px) {
+    .bg-desktop {
+      display: block;
+    }
+    .bg-mobile {
+      display: none;
+    }
+  }
+</style>
+
+
+
+????>>>>>>>>>>>>>>>>>>>>
+<div class="container-fluid" style="background-color: #eff5ee; padding: 0; overflow-x: hidden;">
+  <div class="container my-4">
+      <h1 class="text-center text-success">Best Selling Products</h1>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-4">
+          {% for product in products %}
+          {% if product.trending %}
+          <div class="col">
+              <div class="card h-100" style="height: 400px; overflow: hidden;">
+                  <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+                      <!-- Make the image responsive and avoid overflow -->
+                      <img src="{{ product.image2.url }}" 
+                           class="card-img-top img-fluid" 
+                           alt="{{ product.name }}" 
+                           style="height: 250px; object-fit: cover; width: 100%;">
+                      <div class="card-body">
+                          <h5 class="card-title text-center text-dark">{{ product.name }}</h5>
+                          <h3>Rs {{ product.price }}</h3>
+                          <br>
+                          <div class="d-flex justify-content-start my-1" style="position: absolute; bottom: 40px;">
+                              <span class="fa fa-star" style="color:orange;"></span>
+                              <span class="fa fa-star" style="color:orange;"></span>
+                              <span class="fa fa-star" style="color:orange;"></span>
+                              <span class="fa fa-star" style="color:orange;"></span>
+                              <span class="fa fa-star"></span>
+                          </div>
+                          <!-- Cart -->
+                          <form method="post" action="{% url 'add_to_cart' product.id %}" style="position: absolute; bottom: 10px; right: 8px;">
+                              {% csrf_token %}
+                              <button 
+                                  type="submit" 
+                                  class="btn {% if product.stock == 0 %}btn-secondary{% else %}btn-success{% endif %}" 
+                                  {% if product.stock == 0 %}disabled{% endif %}>
+                                  <i class="fa-solid fa-cart-shopping"></i> 
+                                  {% if product.stock == 0 %}Out of Stock{% else %}Add To Cart{% endif %}
+                              </button>
+                          </form>
+                      </div>
+                  </a>
+              </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+      </div>
+  </div>
+</div>
+
+<!-- CSS to prevent horizontal scrolling -->
+<style>
+  /* Prevent horizontal overflow on the entire page */
+  body, html {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+  }
+
+  /* Container and row adjustments */
+  .container-fluid {
+      padding: 0;
+  }
+
+  .row {
+      margin: 0;
+      overflow: hidden;
+  }
+
+  /* Ensure images fit within their container */
+  .card-img-top {
+      object-fit: cover;
+      width: 100%;
+      height: 250px;
+  }
+
+  /* Ensure cards don't cause overflow */
+  .card {
+      height: 100%;
+      overflow: hidden;
+  }
+</style>
