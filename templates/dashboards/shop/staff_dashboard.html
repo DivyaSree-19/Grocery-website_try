@@ -1,0 +1,49 @@
+
+{%include 'header.html'%}
+
+
+{% block navbar_shop %}
+    {% include 'dashboards/shop/shop_nav.html' %}
+{% endblock %}
+
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+
+<h1>Welcome to Your Shop Dashboard</h1>
+
+<!-- Shop-specific content here -->
+<p>Your shop-specific content goes here.</p>
+
+<h2>Your Products:</h2>
+<ul>
+    {% for product in products %}
+        <li>{{ product.name }} - Price: ${{ product.price }} - Stock: {{ product.stock }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Your Orders:</h2>
+<ul>
+    {% for order in orders %}
+        <li>Order #{{ order.id }} - Total: ${{ order.total_price }} - Status: {{ order.status }}</li>
+    {% endfor %}
+</ul>
+
+</div>
+</div>
+
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

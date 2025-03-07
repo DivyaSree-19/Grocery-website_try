@@ -31,95 +31,94 @@
 <!-- Page Title -->
 <h1 class="text-center">My Cart</h1>
 
-<div class="container-fluid" style="background:#eff5ee;">
-    <br>
-<!-- Main Container -->
-<div class="container my-5" style="background:white;border-radius:35px;">
-    <br>
-  <div class="row" >
-    <br>
-    <!-- Cart Items Section -->
-    <div class="col-lg-8">
-      <div class="cart-container" >
-        <br>
-        <table class="table" style="width:700px;margin-left:30px;">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Subtotal</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for item in cart_items %}
-            <tr>
-              <td>{{ item.product.name }}</td>
-              <td>
-                <div class="input-group mb-3" style="width: 120px;">
-                    <button class="btn btn-outline-success minus-btn" type="button" style="height:30px;">-</button>
-                    <input type="text" class="form-control qty-input" value="{{ item.quantity }}" style="text-align: center; height:30px;">
-                    <button class="btn btn-outline-success plus-btn" type="button" style="height:30px;">+</button>
+<div class="container-fluid"  style="background:#eff5ee;">
+  <br>
+    <div class="container my-5" style="background:white;border-radius:35px;">
+      <br>
+        <div class="row">
+            <!-- Cart Items Section -->
+            <div class="col-lg-8 cart-container"  >
+                <table class="table" >
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>weight</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>
+                                <div class="input-group mb-3" style="width: 120px;">
+                                    <button class="btn btn-outline-success minus-btn" style="height:30px;">-</button>
+                                    <input type="text" class="form-control qty-input" value="{{ item.quantity }}" style="text-align: center; height:30px;">
+                                    <button class="btn btn-outline-success plus-btn"  style="height:30px;">+</button>
+                                </div>
+                            </td>
+                            <td>{{ item.variant_weight }}</td>
+
+                            <td>₹{{ item.variant.price }}</td>
+                            <td>₹{{ item.subtotal|floatformat:2 }}</td>
+
+                            <td>
+                                <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger">Remove</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+            </div>
+
+            <!-- Cart Summary Section -->
+            <div class="col-lg-4" style="border-radius:15px;border:3px solid black;">
+              <br>
+                <div class="cart-summary">
+                    <h4>Coupon code</h4>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Coupon code" style="background:#eff5ee;width:300px;">
+                        <button class="btn btn-outline-success" style="width:100px;border-radius:35px;">Apply</button>
+                    </form>
+                    <hr>
+                    <h2>Subtotal: ₹{{ total_price }}</h2>
+                    <hr>
+                    <p>Shipping</p>
+                    <ul>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                          <label class="form-check-label" for="inlineRadio1">Flat rate: $30.00</label>
+                        </div>
+                  <br>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                          <label class="form-check-label" for="inlineRadio2">Free shipping</label>
+                        </div>
+                  <br>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                          <label class="form-check-label" for="inlineRadio3"> Local pickup</label>
+                        </div>
+                  
+                  <br>
+                  <br>
+                  <h3>Shipping to NY.</h3>
+                  <a href="#">Change address</a>
+                  <hr>
+                          <h4>Total Items: {{ cart_items|length }}</h4>
+                          <h4>Total Price:<t><t> ₹{{ total_price }}</h4>
+                          <a href="{% url 'checkout' %}" class="btn btn-success w-100">Proceed to Checkout</a>
                 </div>
-              </td>
-              <td>₹{{ item.product.price }}</td>
-              <td>₹</td>
-              <td>
-                <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger">Remove</a>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-    
-      </div>
-    </div>
-
-    <!-- Cart Summary Section -->
-    <div class="col-lg-4" >
-      <div class="container" style="margin-left:-100px;border-radius:15px;width:500px;height:700px;border:3px solid black;">
+                <br>
+            </div>
+        </div>
         <br>
-        <h4>Coupon code</h4>
-        <br>
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Coupon code" aria-label="Search" style="background:#eff5ee;width:300px;">
-            <button class="btn btn-outline-success" type="submit" style="width:100px;border-radius:35px;">Apply</button>
-          </form>
-        <hr>
-        <h2>Subtotal: ₹{{ total_price }}</h2>
-        <hr>
-<p>Shipping</p>
-<ul>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-        <label class="form-check-label" for="inlineRadio1">Flat rate: $30.00</label>
-      </div>
-<br>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-        <label class="form-check-label" for="inlineRadio2">Free shipping</label>
-      </div>
-<br>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-        <label class="form-check-label" for="inlineRadio3"> Local pickup</label>
-      </div>
-
-<br>
-<br>
-<h3>Shipping to NY.</h3>
-<a href="#">Change address</a>
-<hr>
-        <h4>Total Items: {{ cart_items|length }}</h4>
-        <h4>Total Price:<t><t> ₹{{ total_price }}</h4>
-        <a href="{% url 'checkout' %}" class="btn btn-success w-100">Proceed to Checkout</a>
     </div>
     <br>
-    </div>
-  </div>
-</div>
-<br>
 </div>
 
 <script>

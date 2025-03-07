@@ -1,0 +1,61 @@
+{%include 'header.html'%}
+
+
+{% block navbar_shop %}
+    {% include 'dashboards/shop/shop_nav.html' %}
+{% endblock %}
+
+<div class="main-content" id="content">
+    <div class="container mt-5">
+        <h2>Edit Products</h2>
+
+        <!-- Table to List Products -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Product Name</th>
+                   
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                   
+                    <td>
+                        
+                      <!-- Inline Edit Form -->
+                      <form action="{% url 'edit_product' product.pk %}" method="GET" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger">Edit</button>
+                    </form>
+                    
+                    
+
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No products available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+
+</script>

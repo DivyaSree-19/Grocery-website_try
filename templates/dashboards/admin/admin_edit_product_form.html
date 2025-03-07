@@ -1,0 +1,39 @@
+{%include 'header.html'%}
+
+{% block navbar_admin %}
+    {% include 'dashboards/admin/admin_nav.html' %}
+{% endblock %}
+
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+        <h2>Edit Product: {{ product.name }}</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <h3>Product Variants</h3>
+            {{ formset.management_form }}
+            {% for form in formset %}
+                {{ form.as_p }}
+            {% endfor %}
+            <button type="submit">Save Changes</button>
+        </form>
+        <a href="{% url 'admin_edit_products_view' %}">Cancel</a>
+
+</div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

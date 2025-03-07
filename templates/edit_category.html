@@ -1,0 +1,55 @@
+{%include 'header.html'%}
+
+
+{% block navbar_shop %}
+    {% include 'dashboards/shop/shop_nav.html' %}
+{% endblock %}
+
+
+<!-- Main Content -->
+<div class="main-content" id="content" >
+    <div class="container " style="margin-left:30px;margin-top:100px;">
+
+        <h2>Categories List (Edit Options)</h2>
+        <table class="table" style="width:400px;">
+            <thead>
+                <tr>
+                    <th>Category Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td>{{ category.name }}</td>
+                        <td>
+                            <a href="{% url 'edit_category' category.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">No categories found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+      
+    </div>
+
+</div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

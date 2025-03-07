@@ -1,0 +1,20 @@
+
+{%include 'header.html'%}
+
+<div class="main-content" id="content">
+    <div class="container mt-5">
+
+    <br>
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2>Shop Registration Already Submitted</h2>
+    <p>You have already registered your shop. Our team is reviewing your request.</p>
+</div>
+
+<a class="btn btn-primary" href="{% url 'profile' %}"> back to home</a>
+{% endblock %}
+
+
+</div>
+</div>

@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-&r!wo644p6jw&6qq8lt0a!t6!fqy_26@-skipf34$el(d#))96
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+
+ALLOWED_HOSTS = ['website.local', 'admin.local']
+
 
 
 # Application definition
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Grocery_app1',
+    'dashboard',
 
 ]
 
@@ -82,24 +85,30 @@ WSGI_APPLICATION = 'Grocery_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'grocery_shop',  # Replace with your database name
+        'USER': 'root',          # Replace with your MySQL username
+        'PASSWORD': 'root',      # Replace with your MySQL password
+        'HOST': '127.0.0.1',     # Use localhost or 127.0.0.1
+        'PORT': '3306',          # Default MySQL port
     }
 }
 
-DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
-}
+
+
+#DATABASES = {
+ #   'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
+   
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 6},
+
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -107,6 +116,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+     # {
+    #    'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    #},
+    
 ]
 
 
@@ -122,7 +135,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+#shif+alt+f
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 

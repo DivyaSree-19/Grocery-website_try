@@ -1,0 +1,66 @@
+
+{%include 'header.html'%}
+
+
+{% block navbar_shop %}
+    {% include 'dashboards/shop/shop_nav.html' %}
+{% endblock %}
+
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+
+    <br>
+         <h1>this is user</h1>
+         <div class="container mt-5">
+          
+            <h2>Users who have placed orders for your products</h2>
+            <table class="table table-bordered" style="width:600px;">
+                <h1>Total Users Who Placed Orders: {{ total_users }}</h1>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact No.</th>
+                <th>Shipping Address</th>
+                <th>Order IDs</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in user_orders %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.contact }}</td>
+                    <td>{{ user.address }}</td>
+                    <td>
+                        {% for order_id in user.orders %}
+                            <a href="{% url 'order_success' order_id=order_id %}">#{{ order_id }}</a>
+                            {% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        </div>
+        
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

@@ -1,0 +1,68 @@
+
+{%include 'header.html'%}
+{% block navbar_admin %}
+    {% include 'dashboards/customers_nav.html' %}
+{% endblock %}
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+     <br>
+        <br>
+        <h2>Your Ordered Shops</h2>
+
+        {% if ordered_products %}
+            <table class='table'>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Product Name</th>
+                    <th>Shop Name</th>
+                    <th>Shop Address</th>
+                    <th>Shop Contact</th>
+                    <th>Shop Logo</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+                {% for item in ordered_products %}
+                <tr>
+                    <td>{{ item.order.id }}</td>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.order.shop.shop_name }}</td> 
+                    <td>{{ item.order.shop.address }}</td>
+                    <td>{{ item.order.shop.contact_number }}</td>
+                    <td>
+                        {% if item.order.shop.logo %}
+                            <img src="{{ item.order.shop.logo.url }}" alt="{{ item.order.shop.shop_name }} Logo" width="50">
+                        {% else %}
+                            No Logo
+                        {% endif %}
+                    </td>
+                    <td>{{ item.quantity }}</td>
+                    <td>₹{{ item.price }}</td>
+                    <td>₹{{ item.subtotal }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No products ordered yet.</p>
+        {% endif %}
+        
+        
+        <a href="{% url 'home' %}">Back to Home</a>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

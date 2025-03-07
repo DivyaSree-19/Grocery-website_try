@@ -1,0 +1,129 @@
+{%include 'header.html'%}
+
+
+{% block navbar_shop %}
+    {% include 'dashboards/shop/shop_nav.html' %}
+{% endblock %}
+
+
+<!-- Main Content -->
+<div class="main-content" id="content" >
+    <div class="container " style="margin-left:30px;margin-top:100px;">
+
+        
+<form method="POST" enctype="multipart/form-data" class="container mt-4">
+    {% csrf_token %}
+  
+    <!-- Product Form -->
+    <h2>Add Product</h2>
+    <div class="mb-3">
+        {{ product_form.as_p }}
+    </div>
+  
+    <!-- Product Variants Section -->
+    <h3>Product Variants (Price & Weight)</h3>
+    <div id="product-variants">
+        {{ formset.management_form }}
+  
+        <!-- Loop through existing forms -->
+        {% for form in formset %}
+            <div class="row mb-3 form-row">
+                <div class="col">
+                    {{ form.as_p }}
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-danger remove-form">Remove</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+  
+    <!-- Add Variant Button -->
+    <button type="button" id="add-variant" class="btn btn-secondary mb-3">Add Variant</button>
+  
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Save Product</button>
+  </form>
+  
+          
+
+</div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+
+     // Handle form addition
+    document.getElementById('add-variant').addEventListener('click', function () {
+        const formsetDiv = document.getElementById('product-variants');
+        const totalFormsInput = formsetDiv.querySelector('input[name$="-TOTAL_FORMS"]');
+        const totalForms = parseInt(totalFormsInput.value);
+        const formClone = formsetDiv.querySelector('.row.form-row').cloneNode(true);
+
+        // Reset inputs and ensure alignment
+        formClone.querySelectorAll('input, select').forEach(input => {
+            input.value = ''; // Clear previous values
+
+            // Update input name and ID attributes for formset
+            const nameAttr = input.name.replace(/-\d+-/, `-${totalForms}-`);
+            input.setAttribute('name', nameAttr);
+            input.id = input.id.replace(/-\d+-/, `-${totalForms}-`);
+        });
+
+        // Clear validation error messages if present
+        formClone.querySelectorAll('.errorlist').forEach(errorList => errorList.remove());
+
+        // Add a unique remove button for each cloned row
+        const removeButton = formClone.querySelector('.remove-form');
+        removeButton.onclick = function () {
+            this.closest('.form-row').remove();
+            updateTotalForms(formsetDiv);
+        };
+
+        formsetDiv.appendChild(formClone);
+
+        // Update total form count
+        totalFormsInput.value = totalForms + 1;
+    });
+
+    // Dynamically update the formset count after removing a row
+    function updateTotalForms(formsetDiv) {
+        const forms = formsetDiv.querySelectorAll('.form-row');
+        const totalFormsInput = formsetDiv.querySelector('input[name$="-TOTAL_FORMS"]');
+        totalFormsInput.value = forms.length;
+
+        forms.forEach((formRow, index) => {
+            formRow.querySelectorAll('input, select').forEach(input => {
+                const nameAttr = input.name.replace(/-\d+-/, `-${index}-`);
+                input.setAttribute('name', nameAttr);
+                input.id = input.id.replace(/-\d+-/, `-${index}-`);
+            });
+        });
+    }
+
+    // Attach event handlers for remove buttons
+    function attachRemoveHandlers() {
+        document.querySelectorAll('.remove-form').forEach(btn => {
+            btn.onclick = function () {
+                this.closest('.form-row').remove();
+                updateTotalForms(document.getElementById('product-variants'));
+            };
+        });
+    }
+
+    // Initial setup to attach remove event handlers
+    attachRemoveHandlers();
+
+
+    
+</script>

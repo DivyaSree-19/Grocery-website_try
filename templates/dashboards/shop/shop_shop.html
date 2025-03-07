@@ -1,0 +1,53 @@
+
+{%include 'header.html'%}
+
+{% block navbar_shop %}
+    {% include 'dashboards/shop/shop_nav.html' %}
+{% endblock %}
+
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+
+    <br>
+         <h1>this is shops</h1>
+         {% if shop_detail %}
+         <p>Shop Found</p>
+         <table class="table">
+             <tr>
+                 <th>Shop ID</th>
+                 <th>Shop Name</th>
+                 <th>Description</th>
+                 <th>Created At</th>
+             </tr>
+             <tr>
+                 <td>{{ shop_detail.id }}</td>
+                 <td>{{ shop_detail.shop_name }}</td>
+                 <td>{{ shop_detail.description }}</td>
+                 <td>{{ shop_detail.created_at }}</td>
+             </tr>
+         </table>
+     {% else %}
+         <p>No shop found for this user.</p>
+     {% endif %}
+     
+    
+     
+     
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

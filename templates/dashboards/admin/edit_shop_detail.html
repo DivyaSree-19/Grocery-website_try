@@ -1,0 +1,68 @@
+{%include 'header.html'%}
+
+{% block navbar_admin %}
+    {% include 'dashboards/admin/admin_nav.html' %}
+{% endblock %}
+
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+
+    <br>
+ 
+    <h2>Edit Shop - {{ form.shop_name.value }}</h2>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Shop Name:</label>
+            {{ form.shop_name }}
+        </div>
+    
+        <div class="mb-3">
+            <label>Description:</label>
+            {{ form.description }}
+        </div>
+    
+        <div class="mb-3">
+            <label>Address:</label>
+            {{ form.address }}
+        </div>
+    
+        <div class="mb-3">
+            <label>Contact Number:</label>
+            {{ form.contact_number }}
+        </div>
+    
+        <div class="mb-3">
+            <label>Logo:</label>
+            {{ form.logo }}
+        </div>
+    
+        <div class="mb-3 form-check">
+            {{ form.is_approved }} <label for="{{ form.is_approved.id_for_label }}">Approved</label>
+        </div>
+    
+        <button type="submit" class="btn btn-success">Save Changes</button>
+    </form>
+    
+    <a href="{% url 'edit_shops' %}" class="btn btn-secondary mt-3">Back to Shop List</a>
+
+    
+</div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

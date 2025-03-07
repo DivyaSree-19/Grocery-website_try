@@ -23,13 +23,13 @@
             margin: auto;
         }
         .product-image {
-            width: 100%;
+            width: 80%;
             height: auto;
             border-radius: 10px;
         }
         .product-image {
             height: 600px;
-            width: 100%;
+            width: 80%;
             object-fit: cover;
         }
         .product-info {
@@ -51,6 +51,11 @@
                 height: auto;
                 width: 100%;
             }
+            .product-info {
+                margin-top: 0 !important;
+                margin-left: 0 !important;
+                padding: 20px;
+            }
         }
         @media (min-width: 768px) {
             .row {
@@ -61,6 +66,31 @@
                 flex: 0 0 50%;
             }
         }
+        .rating {
+            direction: rtl; /* Right to left for proper star alignment */
+            display: inline-flex;
+        }
+        
+        .rating input {
+            display: none; /* Hide radio buttons */
+        }
+        
+        .rating label {
+            font-size: 24px;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .rating input:checked ~ label {
+            color: gold;
+        }
+        
+        .rating label:hover,
+        .rating label:hover ~ label {
+            color: gold;
+        }
+        
     </style>
 
 <div class="container">
@@ -69,7 +99,7 @@
 {% if messages %}
     <div>
         {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} d-flex align-items-center" role="alert" id="success-message" style="margin-top:150px; margin-left:1000px;">
+        <div class="alert alert-{{ message.tags }} d-flex align-items-center" role="alert" id="success-message" style="margin-top:150px; margin-left:650px;width:600px;">
             {{ message|safe }}
         </div>
         {% endfor %}
@@ -82,7 +112,7 @@
             {{ product.category.name }}
            </a>
         </li>
-          <li class="breadcrumb-item active" aria-current="page">{{product.name}}</li>
+          <li class="breadcrumb-item active" aria-current="page">{{product.name}} </li>
         </ol>
      </nav>
 
@@ -93,60 +123,106 @@
         <div class="container bg-white p-3 " style="max-width: 1200px;margin-top:50px;">
             <div class="row g-3">
                 <div class="col-md-6">
-                    <img src="{{ product.image2.url }}" class="product-image" alt="{{ product.name }}">
+                    <img src="{{ product.image2.url }}" class="product-image" alt="{{ product.name }} ">
                 </div>
-                <div class="col-md-6" style="margin-top:-620px;margin-left:450px;">
-                    <h1 class="text-success" style="font-size: 60px;">{{ product.name }}</h1>
-                    <p style="font-size: 20px;">{{ product.name }} can be stored in the refrigerator for up to a month if stored properly.</p>
-                    <p class="text-success" style="font-size: 40px;">Rs {{ product.price }}</p>
-
-
-                    <div class="input-group mb-3" style="width: 150px;">
-                        <button class="btn btn-outline-success minus-btn" type="button" style="height:50px;">-</button>
-                        <input type="text" class="form-control qty-input" value="1" style="text-align: center; height:50px;">
-                        <button class="btn btn-outline-success plus-btn" type="button" style="height:50px;">+</button>
-                    </div>
+               
+                <div class="col-md-6 px-4 py-4 product-info" style="margin-top:-600px;margin-left:450px;">
                     
-                    <!-- Hidden form to submit quantity with the product ID -->
-                    <form id="add-to-cart-form" action="{% url 'add_to_cart' product.id %}" method="POST" style="display: inline;">
-                        {% csrf_token %}
-                        <input type="hidden" name="quantity" id="quantity-input" value="1">
-                        <button 
-                            type="button" 
-                            id="add-to-cart-button" 
-                            class="btn {% if product.stock == 0 %}btn-secondary{% else %}btn-success{% endif %}" 
-                            style="width:150px; margin-top:-140px; height:50px; margin-left:160px;" 
-                            {% if product.stock == 0 %} disabled {% endif %}>
-                            <i class="fas fa-cart-shopping"></i> 
-                            {% if product.stock == 0 %}Out of Stock{% else %}Add to Cart{% endif %}
-                        </button>
-                    </form>
-                    
-                    
-                     <!-- favourite btn -->
-                    <form action="{% url 'add_to_favorite' product.id %}" method="POST" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-success" id="favorite-button" 
-                                style="border-radius:50px; margin-top:-140px; height:50px; width:50px; margin-left:10px;">
-                            <i class="fas fa-heart {% if is_favorited %}text-danger{% endif %}"></i>
-                        </button>
-                    </form>
+                    <!--product name-->
+                    <h1  class="text-success text-center text-md-start" style="font-size: 40px;">
+                        {{product.name}} -
+                     </h1>
+ 
+                    <h1 id="display-variant" class="text-success text-md-end" style="font-size: 40px;margin-left:190px;margin-top:-55px;">
+                    pls select
+                    </h1>
 
-                    <a href="#"><button class="btn btn-outline-success " style="border-radius:50px;height:60px;width:380px;margin-left:-380px;">Buy Now</button></a>
+                    <p class="text-center text-md-start" style="font-size: 19px;">
+                        {{ product.name }} can be stored in the refrigerator for up to a month if stored properly.
+                    </p>
 
-                    <div class="alert alert-custom mt-3 d-flex align-items-center" role="alert" style="height:70px;">
-                        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                        <div style="margin-left:-300px;">
-                            <i class="far fa-clock"></i> We Deliver the Next Day from 10:00 AM to 08:00 PM
+                    <!--price-->
+                    <p id="display-price" class="text-success text-center text-md-start" style="font-size: 44px;">
+                        Rs {{ variants.first.price }}
+                    </p>
+
+                    <!-- Quantity Input Group -->
+                    <div class="d-flex justify-content-center justify-content-md-start">
+                        <div class="input-group mb-3" style="max-width: 200px;">
+                            <button class="btn btn-outline-success minus-btn" type="button" style="height: 40px;">-</button>
+                            <input type="text" class="form-control qty-input text-center" value="1" style="height: 40px;">
+                            <button class="btn btn-outline-success plus-btn" type="button" style="height: 40px;">+</button>
                         </div>
                     </div>
-                    <ul id='des' style="font-weight: 100; list-style: none; margin-left: 20px;">
+                
+                    <!-- Add to Cart and Favorite Buttons -->
+                    <div class="d-flex flex-column flex-md-row align-items-center">
+                        <form id="add-to-cart-form" action="{% url 'add_to_cart' product.id %}" method="POST" class="mb-2 mb-md-0 me-md-3">
+                            {% csrf_token %}
+                            <input type="hidden"  name="quantity" id="quantity-input" value="1">
+                            <input type="hidden" name="price" id="selected-price" value="">
+                            <input type="hidden" name="variant_name" id="selected-variant" value="">
+                            <button 
+                                type="button" 
+                                id="add-to-cart-button" 
+                                class="btn {% if product.stock == 0 %}btn-secondary{% else %}btn-success{% endif %}" 
+                                style="width: 200px; height: 50px;" 
+                                {% if product.stock == 0 %} disabled {% endif %}>
+                                <i class="fas fa-cart-shopping"></i> 
+                                {% if product.stock == 0 %}Out of Stock{% else %}Add to Cart{% endif %}
+                            </button>
+                        </form>
+                        
+                        <form action="{% url 'add_to_favorite' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-success" id="favorite-button" 
+                                    style="border-radius: 50%; height: 50px; width: 50px;">
+                                <i class="fas fa-heart {% if is_favorited %}text-danger{% endif %}"></i>
+                            </button>
+                        </form>
+                    </div>
+                
+                    <!-- Buy Now Button -->
+                    <div class="d-flex justify-content-center justify-content-md-start mt-3" >
+                        <a href="#">
+                            <button class="btn btn-outline-success" style="border-radius: 50px; width: 300px; height: 50px;">Buy Now</button>
+                        </a>
+                    </div>
+
+
+                
+<!-- Variant Buttons -->
+<div id="variant-buttons">
+    {% for variant in variants %}
+    <div class="d-flex justify-content-center justify-content-md-start mt-3">
+        <button 
+            class="btn btn-outline-success variant-btn" 
+            style="border-radius: 10px; width: 400px; height: 50px;" 
+            data-price="{{ variant.price }}" 
+            data-variant="{{ variant.weight.variant_name }}">
+            {{ variant.weight.variant_name }}
+        </button>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+                    <!-- Alert -->
+                    <div class="alert alert-custom mt-3 d-flex align-items-center justify-content-center justify-content-md-start" role="alert" style="height: auto;">
+                        <i class="far fa-clock me-2"></i>
+                        <div>We Deliver the Next Day from 10:00 AM to 08:00 PM</div>
+                    </div>
+                
+                    <!-- Features List -->
+                    <ul id="des" class="list-unstyled text-center text-md-start" style="font-weight: 200; padding-left: 0; margin-left:20px;margin-top:20px;width:350px;">
                         <li>100% Money Back Warranty</li>
                         <li>Free and Fast Delivery</li>
                         <li>All Items Top Best Quality</li>
                         <li>24/7 Support</li>
                     </ul>
                 </div>
+                
             </div>
         </div>
         <div class="container bg-white " style="max-width: 1200px;">
@@ -171,26 +247,31 @@
 
         <div class="container bg-white p-3 review" style="max-width: 1200px; margin-top:2px;">
         <h2>Add a Review</h2>
+        
         <form method="post" action="{% url 'add_review' product.id %}">
-           {% csrf_token %}
-         
+            {% csrf_token %}
+        
             <div class="rating">
-                <input type="radio" id="star5" name="rating" value="5"><label for="star5">☆</label>
+                <input type="radio" id="star5" name="rating" value="5" required><label for="star5">☆</label>
                 <input type="radio" id="star4" name="rating" value="4"><label for="star4">☆</label>
                 <input type="radio" id="star3" name="rating" value="3"><label for="star3">☆</label>
                 <input type="radio" id="star2" name="rating" value="2"><label for="star2">☆</label>
                 <input type="radio" id="star1" name="rating" value="1"><label for="star1">☆</label>
             </div>
-          <div class="mb-3">
-             <label for="id_comment" class="form-label"></label>
-             {{ review_form.comment }}
-          </div>
-          <div class="mb-3">
-            <label for="id_email" class="form-label"></label>
-            {{ review_form.email }}
-         </div>
-          <button type="submit" class="btn btn-success">Submit Review</button>
-       </form>
+        
+            <div class="mb-3">
+                <label for="id_comment" class="form-label">Your Review:</label>
+                <textarea name="comment" class="form-control" required></textarea>
+            </div>
+        
+            <div class="mb-3">
+                <label for="id_email" class="form-label">Your Email:</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+        
+            <button type="submit" class="btn btn-success">Submit Review</button>
+        </form>
+        
 
         </div>
     </div>
@@ -265,6 +346,47 @@
             });
         });
         
+// Get all buttons and the display elements
+const variantButtons = document.querySelectorAll('.variant-btn');
+const variantDisplay = document.getElementById('display-variant');
+const priceDisplay = document.getElementById('display-price');
+
+// Add event listeners to each button
+variantButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        // Get price and variant name from the button's data attributes
+        const price = this.getAttribute('data-price');
+        const variantName = this.getAttribute('data-variant');
+
+        // Update the price and variant name display dynamically
+        variantDisplay.textContent = `${variantName}`;
+        priceDisplay.textContent = `Rs ${price}`;
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const variantButtons = document.querySelectorAll('.variant-btn');
+    const selectedPriceInput = document.getElementById('selected-price');
+    const selectedVariantInput = document.getElementById('selected-variant');
+
+    variantButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Get data attributes from the selected button
+            const price = button.getAttribute('data-price');
+            const variant = button.getAttribute('data-variant');
+
+            // Update hidden inputs for form submission
+            selectedPriceInput.value = price;
+            selectedVariantInput.value = variant;
+
+            // Optionally highlight the selected button
+            variantButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+});
+
+
     </script>
 
     

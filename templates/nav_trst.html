@@ -775,3 +775,316 @@ new
       overflow: hidden;
   }
 </style>
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////
+<div class="container-fluid" style="background-color: #eff5ee; padding: 0;height:auto;">
+  <div class="container my-4">
+      <h1 class="text-center text-success">Best Selling Products</h1>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-4">
+          {% for product in products %}
+          {% if product.trending %}
+          <div class="col">
+              <div class="card " style="height: 450px; overflow: hidden;">
+                  <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+                      <!-- Make the image responsive and avoid overflow -->
+                      <img src="{{ product.image2.url }}" 
+                           class="card-img-top img-fluid" 
+                           alt="{{ product.name }}" 
+                           style="height: 250px; object-fit: cover; width: 100%;">
+
+                      <div class="card-body">
+                          <h5 class="card-title text-center text-dark">{{ product.name }}</h5>
+
+                          
+
+<!-- Product Price -->
+<h3 style="color: black;margin-top:25px;width:200px;position: absolute;" id="selected-price-{{ product.id }}">
+  Rs {{ product.variants.first.price  }}
+</h3>
+
+                          <br>
+                          <div class="d-flex justify-content-start my-1" style="position: absolute; bottom: 80px;">
+                              <span class="fa fa-star" style="color:orange;"></span>
+                              <span class="fa fa-star" style="color:orange;"></span>
+                              <span class="fa fa-star" style="color:orange;"></span>
+                              <span class="fa fa-star" style="color:orange;"></span>
+                              <span class="fa fa-star"></span>
+                          </div>
+
+
+
+<!-- Variant Dropdown -->
+<div class="product-dropdown dropdown mt-3" >
+  <button class="btn btn-outline-success dropdown-toggle" 
+          type="button" 
+          id="variantDropdown{{ product.id }}" 
+          data-bs-toggle="dropdown" 
+          aria-expanded="false" 
+          style="border-radius: 10px; width: 100%; height: 30px; margin-top:30px;">
+      Select Variant
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="variantDropdown{{ product.id }}">
+      {% for variant in product.variants.all %}
+      <li>
+          <a class="dropdown-item" href="#" 
+             data-price="{{ variant.price }}" 
+             data-variant="{{ variant.weight.variant_name }}">
+              {{ variant.weight.variant_name }} - Rs {{ variant.price }}
+          </a>
+      </li>
+      {% endfor %}
+  </ul>
+</div>
+
+
+                          <!-- Add to Cart Button -->
+                  <form method="post" action="{% url 'add_to_cart' product.id %}" class="mt-3" style="position: absolute; bottom: 5px; right: 8px;">
+                      {% csrf_token %}
+                      <!-- Hidden inputs to store selected variant data -->
+                      <input type="hidden" name="variant_name" id="selectedVariantName{{ product.id }}">
+                      <input type="hidden" name="variant_price" id="selectedVariantPrice{{ product.id }}">
+                      
+                      <button type="submit" 
+                              class="btn btn-success add-to-cart-btn {% if product.stock == 0 %}btn-secondary{% endif %}" 
+                              {% if product.stock == 0 %}disabled{% endif %}>
+                          <i class="fa-solid fa-cart-shopping"></i> 
+                          {% if product.stock == 0 %}Out of Stock{% else %}Add To Cart{% endif %}
+                      </button>
+                  </form>
+                          
+                      </div>
+                  </a>
+              </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+      </div>
+  </div>
+</div>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      // Favorite Button Functionality
+      const favoriteButtons = document.querySelectorAll('.favorite-button');
+      favoriteButtons.forEach(function (button) {
+          button.addEventListener('click', function (event) {
+              event.preventDefault(); // Prevent the form submission to avoid page reload
+              const icon = button.querySelector('i');
+              icon.classList.toggle('text-danger'); // Toggle the 'text-danger' class (red heart)
+              const form = button.closest('form');
+              form.submit(); // Optionally, send an AJAX request to update the server
+          });
+      });
+  
+     // Dropdown Variant Selection Functionality
+  document.querySelectorAll('.product-dropdown').forEach(function (dropdown) {
+      const dropdownButton = dropdown.querySelector('.dropdown-toggle');
+      const menuItems = dropdown.querySelectorAll('.dropdown-item');
+      const selectedVariantNameInput = dropdown.parentElement.querySelector('input[name="variant_name"]');
+      const selectedVariantPriceInput = dropdown.parentElement.querySelector('input[name="variant_price"]');
+
+      // Add event listeners to all dropdown items
+      menuItems.forEach(function (item) {
+          item.addEventListener('click', function (event) {
+              event.preventDefault(); // Prevent default link behavior
+
+              // Get data from the clicked item
+              const variantName = this.getAttribute('data-variant');
+              const variantPrice = this.getAttribute('data-price');
+
+              // Update the dropdown button text
+              dropdownButton.textContent = `${variantName} - Rs ${variantPrice}`;
+
+              // Update the hidden inputs in the form
+              selectedVariantNameInput.value = variantName;
+              selectedVariantPriceInput.value = variantPrice;
+
+              // Dynamically update the displayed price in the correct card
+              const selectedPriceElement = dropdown.parentElement.querySelector(`#selected-price-${dropdownButton.id.replace('variantDropdown', '')}`);
+              if (selectedPriceElement) {
+                  selectedPriceElement.textContent = `Rs ${variantPrice}`;
+              }
+          });
+      });
+  });
+});
+  
+  
+</script>
+
+///////////////////////////------------------------------------------///////////////////////////
+
+from django import forms
+from django.forms import inlineformset_factory
+from .models import Product, ProductVariant
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['name', 'category', 'description', 'stock', 'color_variant', 'size_variant', 'image2', 'available']
+
+class ProductVariantForm(forms.ModelForm):
+    class Meta:
+        model = ProductVariant
+        fields = ['weight', 'price']
+
+# Create an inline formset for Product and ProductVariant
+ProductVariantFormSet = inlineformset_factory(
+    Product, ProductVariant, form=ProductVariantForm, extra=1, can_delete=True
+)
+
+
+
+
+# Add product:
+
+
+def add_product(request):
+    if request.method == 'POST':
+        product_form = ProductForm(request.POST, request.FILES)
+        formset = ProductVariantFormSet(request.POST)
+
+        if product_form.is_valid() and formset.is_valid():
+            # Save the product instance
+            product = product_form.save()
+
+            # Set the instance of the formset to the saved product
+            formset.instance = product
+
+            # Save the formset (product variants)
+            formset.save()
+
+            # Redirect to product list or another page
+            return redirect('view_products')  # Update with your actual redirect URL
+    else:
+        product_form = ProductForm()
+        formset = ProductVariantFormSet()
+
+    return render(request, 'add_product.html', {
+        'product_form': product_form,
+        'formset': formset,
+    })
+
+
+    tem[late]
+
+    
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <!-- Product Form -->
+      <div>
+          {{ product_form.as_p }}
+      </div>
+  
+      <h3>Product Variants (Price & Weight)</h3>
+      <div class="formset" id="product-variants">
+          {{ formset.management_form }}
+          
+          <!-- Loop through existing forms -->
+          {% for form in formset %}
+              <div class="form-row">
+                  {{ form.as_p }}
+                  <button type="button" class="remove-form">Remove Variant</button>
+              </div>
+          {% endfor %}
+      </div>
+      
+      <!-- Button to add more variants -->
+      <button type="button" id="add-variant">Add Variant</button>
+  
+      <!-- Submit Button -->
+      <button type="submit">Save Product</button>
+  </form>
+
+  ///////////////////////////
+  document.getElementById('add-variant').addEventListener('click', function () {
+    const formsetDiv = document.getElementById('product-variants');
+    const totalFormsInput = formsetDiv.querySelector('input[name$="-TOTAL_FORMS"]');
+    const totalForms = parseInt(totalFormsInput.value);
+    const formClone = formsetDiv.querySelector('.row.form-row').cloneNode(true);
+    
+    // Reset cloned form inputs and update names/ids
+    formClone.querySelectorAll('input').forEach(input => {
+        input.value = ''; // Clear input values
+
+        // Update name and id for each input field
+        const nameAttr = input.name.replace(/-\d+-/, `-${totalForms}-`);
+        input.setAttribute('name', nameAttr);
+        input.id = input.id.replace(/-\d+-/, `-${totalForms}-`);
+
+        // Create and append a div to display the updated name and id next to the input field
+        const infoDiv = document.createElement('div');
+        infoDiv.classList.add('input-info'); // Add a class for styling
+        infoDiv.innerText = `Name: ${input.name}, ID: ${input.id}`;
+
+        // Append the infoDiv next to the input
+        input.parentElement.appendChild(infoDiv);
+    });
+
+    // Add the cloned form to the formset
+    formsetDiv.appendChild(formClone);
+    
+    // Update the total form count
+    totalFormsInput.value = totalForms + 1;
+});
+
+document.querySelectorAll('.remove-form').forEach(btn => {
+    btn.addEventListener('click', function () {
+        // Remove the entire form row when the remove button is clicked
+        this.closest('.form-row').remove();
+    });
+});
+
+<form method="POST" enctype="multipart/form-data" class="container mt-4">
+  {% csrf_token %}
+
+  <!-- Product Form -->
+  <h2>Add Product</h2>
+  <div class="mb-3">
+      {{ product_form.as_p }}
+  </div>
+
+  <!-- Product Variants Section -->
+  <h3>Product Variants (Price & Weight)</h3>
+  <div id="product-variants">
+      {{ formset.management_form }}
+
+      <!-- Loop through existing forms -->
+      {% for form in formset %}
+          <div class="row mb-3 form-row">
+              <div class="col">
+                  {{ form.as_p }}
+              </div>
+              <div class="col-auto">
+                  <button type="button" class="btn btn-danger remove-form">Remove</button>
+              </div>
+          </div>
+      {% endfor %}
+  </div>
+
+  <!-- Add Variant Button -->
+  <button type="button" id="add-variant" class="btn btn-secondary mb-3">Add Variant</button>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-primary">Save Product</button>
+</form>
+jj
+
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&
+<a href="{% url 'edit_shop' shop.id %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'delete_shop' shop.id %}" class="btn btn-danger">Delete</a>
+                {% if not shop.is_approved %}
+                <a href="{% url 'approve_shop' shop.id %}" class="btn btn-success">Approve</a>
+                {% endif %}

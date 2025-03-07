@@ -1,0 +1,38 @@
+{%include 'header.html'%}
+
+{% block navbar_admin %}
+    {% include 'dashboards/admin/admin_nav.html' %}
+{% endblock %}
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+        <br>
+        <br>
+        
+        <h2>Review Details - ID: {{ review.id }}</h2>
+        <p><strong>User:</strong> {{ review.user.username }}</p>
+        <p><strong>Product:</strong> {{ review.product.name }}</p>
+        <p><strong>Rating:</strong> {{ review.rating }}/5</p>
+        <p><strong>Email:</strong> {{ review.email }}</p>
+        <p><strong>Comment:</strong> {{ review.comment }}</p>
+        <p><strong>Submitted on:</strong> {{ review.created_at }}</p>
+        
+
+<a href="{% url 'admin_feedback_list' %}">Back to Feedback</a>
+</div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

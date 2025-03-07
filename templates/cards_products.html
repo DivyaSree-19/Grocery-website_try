@@ -6,50 +6,150 @@
         {% endfor %}
     </ul>
 -->
+
 <div class="container-fluid" style="background-color: #eff5ee; padding: 0;height:auto;">
     <div class="container my-4">
         <h1 class="text-center text-success">Best Selling Products</h1>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-4">
             {% for product in products %}
-            {% if product.trending %}
-            <div class="col">
-                <div class="card " style="height: 400px; overflow: hidden;">
-                    <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
-                        <!-- Make the image responsive and avoid overflow -->
-                        <img src="{{ product.image2.url }}" 
-                             class="card-img-top img-fluid" 
-                             alt="{{ product.name }}" 
-                             style="height: 250px; object-fit: cover; width: 100%;">
+                {% if product.trending %}
+                    
+                <div class="col">
+                    <div class="card h-100">
+                        <!-- Product Image -->
+                        <a href="{% url 'product_detail' product.id %}" style="text-decoration: none;">
+                            <img src="{{ product.image2.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 300px;">
+                        
+        
                         <div class="card-body">
-                            <h5 class="card-title text-center text-dark">{{ product.name }}</h5>
-                            <h3 style=" margin-top:25px;width:200px;position: absolute; ">Rs {{ product.price }}</h3>
-                            <br>
-                            <div class="d-flex justify-content-start my-1" style="position: absolute; bottom: 80px;">
-                                <span class="fa fa-star" style="color:orange;"></span>
-                                <span class="fa fa-star" style="color:orange;"></span>
-                                <span class="fa fa-star" style="color:orange;"></span>
-                                <span class="fa fa-star" style="color:orange;"></span>
-                                <span class="fa fa-star"></span>
-                            </div>
-                            <!-- Cart -->
-                            <form method="post" action="{% url 'add_to_cart' product.id %}" style="position: absolute; bottom: 5px; right: 8px;">
+                            <!-- Product Title -->
+                            <h5 class="card-title text-success text-center">{{ product.name }}</h5>
+                            
+                            <!-- Product Price -->
+                           <!-- Product Price -->
+        <!-- Product Price -->
+        <h3 style="color: black;" id="selected-price-{{ product.id }}">
+            Rs {{ product.variants.first.price  }}
+        </h3>
+        
+    </a>
+        
+        
+                          
+                            <!-- Product Rating -->
+<!-- Product Rating -->
+<div class="d-flex justify-content-start my-1 text-success">
+    {% for i in "12345" %}
+        {% if i|add:"0" <= product.avg_rating %}
+            <span class="fa fa-star" style="color: orange;"></span>  <!-- Filled Star -->
+        {% else %}
+            <span class="fa fa-star" style="color: gray;"></span>  <!-- Empty Star -->
+        {% endif %}
+    {% endfor %}
+</div>
+
+        
+                            <!-- Favorite Button -->
+                            <form action="{% url 'add_to_favorite' product.id %}" method="POST" style="display: inline;">
                                 {% csrf_token %}
-                                <button 
-                                    type="submit" 
-                                    class="btn {% if product.stock == 0 %}btn-secondary{% else %}btn-success{% endif %}" 
-                                    {% if product.stock == 0 %}disabled{% endif %}>
+                                <button type="submit" class="btn btn-outline-success" style="position: absolute; width: 45px; height: 45px; border-radius: 50px; right: 20px; top: 330px;">
+                                    <i class="fas fa-heart {% if product.id in favorited_products %}text-danger{% endif %}"></i>
+                                </button>
+                            </form>
+        
+                            <!-- Variant Dropdown -->
+                            <div class="product-dropdown dropdown mt-3">
+                                <button class="btn btn-outline-success dropdown-toggle" 
+                                        type="button" 
+                                        id="variantDropdown{{ product.id }}" 
+                                        data-bs-toggle="dropdown" 
+                                        aria-expanded="false" 
+                                        style="border-radius: 10px; width: 100%; height: 30px;">
+                                    Select Variant
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="variantDropdown{{ product.id }}">
+                                    {% for variant in product.variants.all %}
+                                    <li>
+                                        <a class="dropdown-item" href="#" 
+                                           data-price="{{ variant.price }}" 
+                                           data-variant="{{ variant.weight.variant_name }}">
+                                            {{ variant.weight.variant_name }} - Rs {{ variant.price }}
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            
+                            <!-- Add to Cart Button -->
+                            <form method="post" action="{% url 'add_to_cart' product.id %}" class="mt-3">
+                                {% csrf_token %}
+                                <!-- Hidden inputs to store selected variant data -->
+                                <input type="hidden" name="variant_name" id="selectedVariantName{{ product.id }}">
+                                <input type="hidden" name="variant_price" id="selectedVariantPrice{{ product.id }}">
+                                
+                                <button type="submit" 
+                                        class="btn btn-success add-to-cart-btn {% if product.stock == 0 %}btn-secondary{% endif %}" 
+                                        {% if product.stock == 0 %}disabled{% endif %}>
                                     <i class="fa-solid fa-cart-shopping"></i> 
                                     {% if product.stock == 0 %}Out of Stock{% else %}Add To Cart{% endif %}
                                 </button>
                             </form>
                         </div>
-                    </a>
+                    </div>
                 </div>
-            </div>
-            {% endif %}
+
+                {% endif %}
             {% endfor %}
         </div>
     </div>
 </div>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Favorite Button Functionality
+    const favoriteButtons = document.querySelectorAll('.favorite-button');
+    favoriteButtons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the form submission to avoid page reload
+            const icon = button.querySelector('i');
+            icon.classList.toggle('text-danger'); // Toggle the 'text-danger' class (red heart)
+            const form = button.closest('form');
+            form.submit(); // Optionally, send an AJAX request to update the server
+        });
+    });
+
+    // Dropdown Variant Selection Functionality
+    document.querySelectorAll('.product-dropdown').forEach(function (dropdown) {
+        const dropdownButton = dropdown.querySelector('.dropdown-toggle');
+        const menuItems = dropdown.querySelectorAll('.dropdown-item');
+        const selectedVariantNameInput = dropdown.parentElement.querySelector('input[name="variant_name"]');
+        const selectedVariantPriceInput = dropdown.parentElement.querySelector('input[name="variant_price"]');
+
+        // Add event listeners to all dropdown items
+        menuItems.forEach(function (item) {
+            item.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent default link behavior
+
+                // Get data from the clicked item
+                const variantName = this.getAttribute('data-variant');
+                const variantPrice = this.getAttribute('data-price');
+
+                // Update the dropdown button text
+                dropdownButton.textContent = `${variantName} - Rs ${variantPrice}`;
+
+                // Update the hidden inputs in the form
+                selectedVariantNameInput.value = variantName;
+                selectedVariantPriceInput.value = variantPrice;
+
+                // Dynamically update the displayed price in the correct card (if applicable)
+                const selectedPriceElement = dropdown.parentElement.querySelector(`#selected-price-${dropdownButton.id.replace('variantDropdown', '')}`);
+                if (selectedPriceElement) {
+                    selectedPriceElement.textContent = `Rs ${variantPrice}`;
+                }
+            });
+        });
+    });
+});
+</script>

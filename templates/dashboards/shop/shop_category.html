@@ -1,0 +1,39 @@
+
+{%include 'header.html'%}
+
+{% block navbar_shop %}
+    {% include 'dashboards/shop/shop_nav.html' %}
+{% endblock %}
+
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+
+    <br>
+         <h1>this is category</h1>
+         <div class="card-group" style="display: flex; gap: 20px;  ">
+            <div class="card text-bg-dark mb-3" style="height:160px;width: 300px;border-radius:10px;">
+                <div class="card-header"><h4>add category</h4></div>
+                <div class="card-body">
+                  <h5 class="card-title text-center">hh</h5>
+                  <br>
+                  <p class="card-text">view more>></p>
+                </div>
+            </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

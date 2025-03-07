@@ -2,9 +2,76 @@
 
 {% include 'header.html'%}
 
-{% block label_top %}
-    {% include 'label_top.html' %}
-{% endblock %}
+
+
+<!-- label_top.html -->
+<div class="bg-success label d-none d-lg-flex fixed-top" style="width: 100vw; height: 50px; display: flex; justify-content: start; z-index: 1040;">
+    <h4 id="lab" style="margin-left: 20px; display: flex; align-items: center;">
+        <i class="fa-solid fa-truck-fast"></i> Delivery On Next Day 8:00 AM to 10:00 PM
+    </h4>
+
+
+    
+    <nav class="navbar navbar-expand-lg " id="cen">
+     
+  
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home'%}">Home</a>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Shop
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                            <li><a class="dropdown-item" href="{% url 'category'%}">category</a></li>
+                            <li><a class="dropdown-item" href="#">Brands</a></li>
+                            
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog'%}">Blog</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            More
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                            <li><a class="dropdown-item" href="{% url 'about'%}">About</a></li>
+                            <li><a class="dropdown-item" href="#">Contact</a></li>
+                            <li><a class="dropdown-item" href="#">FAQ</a></li>
+                        </ul>
+                    </li>
+                 
+                </ul>
+        
+        </div>
+
+            <div class="collapse navbar-collapse" id="user_reg">
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item "><a href="{% url 'profile' %}" style="color:white;text-decoration:none;margin-left:-130px;">Welcome {{user.username}}!!</a></li>
+                        <li class="nav-item "><a href="{% url 'logout' %}" style="color:white;text-decoration:none;">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item"><a href="{% url 'login' %}"style="color:white;text-decoration:none;">Login</a></li>
+                        <li class="nav-item "><a href="{% url 'register' %}"style="color:white;text-decoration:none;">Register</a></li>
+                    {% endif %}
+                </ul>  
+            </div>  
+     
+        
+
+
+
+      </nav>
+
+</div>
+
 
 {% block navbar %}
    
@@ -34,8 +101,32 @@
     {% include 'home_category.html' %}
 {% endblock %}
 
+<div class="bg-success label d-flex fixed-bottom" 
+    style="width: 100vw; height: 50px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; z-index: 1040; background-color: pink;">
+    
+    <h5 class="text-white text-center">Do you want to add your shop to our website?</h5>
+    
+    <a href="{% url 'register_shop' %}" class="btn btn-primary btn-lg" style="margin-right: 20px;height:40px;">Register Your Shop</a>
+</div>
+
+
 
 {% block footer %}
     {% include 'footer.html' %}
 {% endblock %}
 </div>
+
+<style>
+    @media (max-width: 768px) {
+        .label {
+            height: 70px; /* Adjust height */
+            flex-direction: column; /* Stack items vertically */
+            text-align: center; /* Center-align text */
+            padding: 10px; /* Add padding */
+        }
+        .label h5 {
+            font-size: 14px; /* Smaller font size */
+        }
+    }
+    
+</style>

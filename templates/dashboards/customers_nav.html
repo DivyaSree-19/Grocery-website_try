@@ -1,0 +1,57 @@
+<style>
+    /* Sidebar styles */
+    .sidebar {
+        width: 300px;
+        height: 100vh;
+        background-color: #f8f9fa;
+        position: fixed;
+        top: 0;
+        left: 0; /* Initially visible */
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+    .sidebar.hide {
+        left: -300px; /* Hide sidebar */
+    }
+    /* Main content styles */
+    .main-content {
+        margin-left: 300px; /* Adjust for sidebar */
+        transition: all 0.3s ease;
+    }
+    .main-content.full {
+        margin-left: 0; /* Expand when sidebar is hidden */
+    }
+    /* Toggle button styles */
+    .toggle-btn {
+        position: fixed;
+        top: 20px;
+        left: 320px; /* Adjusted for sidebar */
+        z-index: 1100;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .toggle-btn.shift {
+        left: 20px; /* Move button closer when sidebar is hidden */
+    }
+</style>
+
+
+<div class="sidebar" id="sidebar">
+    <h4 class="text-center py-3">Navigation</h4>
+    <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'profile' %}">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'customer_shops' %}">Shops</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'customer_feedback' %}">Your Feedbacks</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'update_user_details' %}">Your Details</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'customer_change_password' %}">Change passwords</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" href="{% url 'home' %}" style="background-color:red;">Move to Dashboard</a></li>
+    </ul>
+</div>
+
+<!-- Toggle Button -->
+<button class="toggle-btn" id="toggleSidebar">☰</button>

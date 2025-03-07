@@ -1,0 +1,58 @@
+{%include 'header.html'%}
+
+{% block navbar_cus %}
+    {% include 'dashboards/cus_nav.html' %}
+{% endblock %}
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+<br>
+        <h1>Customer Dashboard</h1>
+
+        <h1>Profile: {{ user.username }}</h1>
+
+        {% if orders %}
+        <p>Orders Found</p>
+        <table class="table">
+            <tr>
+                <th>Order ID</th>
+                <th>Status</th>
+                <th>Total Price</th>
+                <th>Date</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.status }}</td>
+                <td>₹{{ order.total_price }}</td>
+                <td>{{ order.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No orders found.</p>
+        <p>Debug: {{ orders }}</p>
+    {% endif %}
+    
+
+    
+        
+        <h1>Main Content</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod vehicula purus.</p>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

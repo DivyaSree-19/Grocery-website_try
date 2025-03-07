@@ -1,6 +1,58 @@
-<h1>Customer Dashboard</h1>
-<ul>
-    {% for order in orders %}
-    <li>Order #{{ order.id }} - {{ order.status }}</li>
-    {% endfor %}
-</ul>
+
+{%include 'header.html'%}
+
+
+{% block navbar_customer %}
+    {% include 'dashboards/customers_nav.html' %}
+{% endblock %}
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+
+        <h1>Customer Dashboard</h1>
+
+        <h1>Profile: {{ user.username }}</h1>
+
+        {% if orders %}
+        <p>Orders Found</p>
+        <table class="table">
+            <tr>
+                <th>Order ID</th>
+                <th>Status</th>
+                <th>Total Price</th>
+                <th>Date</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+                <td>
+                    <a href="{% url 'order_detail' order.id %}">{{ order.id }}</a>
+                </td>
+                <td>{{ order.id }}</td>
+                <td>{{ order.status }}</td>
+                <td>₹{{ order.total_price }}</td>
+                <td>{{ order.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No orders found.</p>
+        <p>Debug: {{ orders }}</p>
+    {% endif %}
+
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

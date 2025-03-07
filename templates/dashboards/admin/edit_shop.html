@@ -1,0 +1,57 @@
+{%include 'header.html'%}
+
+{% block navbar_admin %}
+    {% include 'dashboards/admin/admin_nav.html' %}
+{% endblock %}
+
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+
+    
+        <h2>Edit Shops</h2>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Shop Name</th>
+                    <th>Vendor</th>
+                    <th>Contact</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for shop in shops %}
+                <tr>
+                    <td>{{ shop.shop_name }}</td>
+                    <td>{{ shop.user.username }}</td>  {# Use user.username instead of vendor_name #}
+                    <td>{{ shop.contact_number }}</td>  {# Ensure the correct field name #}
+                    <td>
+                        <a href="{% url 'edit_shop_detail' shop.id %}" class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+       
+        
+    <a href="{% url 'view_shops' %}">Back to Shops</a>
+
+</div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

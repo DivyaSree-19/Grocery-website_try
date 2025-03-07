@@ -1,0 +1,42 @@
+{%include 'header.html'%}
+
+{% block navbar_admin %}
+    {% include 'dashboards/admin/admin_nav.html' %}
+{% endblock %}
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+        <br>
+        <br>
+    <br>
+    <h2>Order Details - ID: {{ order.id }}</h2>
+    <p><strong>Customer:</strong> {{ order.user.username }}</p>
+    <p><strong>Status:</strong> {{ order.status }}</p>
+    <p><strong>Total Price:</strong> RS. {{ order.total_price }}</p>
+    
+    <h3>Order Items</h3>
+    <ul>
+        {% for item in order.items.all %}
+        <li>{{ item.product.name }} - {{ item.quantity }} x RS. {{ item.price }}</li>
+        {% endfor %}
+    </ul>
+    
+    <a href="{% url 'admin_orders_list' %}">Back to Orders</a>
+
+</div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>
