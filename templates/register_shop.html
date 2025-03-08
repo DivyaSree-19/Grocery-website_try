@@ -1,12 +1,25 @@
 
+{%include 'header.html'%}
 
-{% block content %}
+{% block label_top %}
+    {% include 'label_top.html' %}
+{% endblock %}
+
+{% block navbar %} 
+    {% include 'navbar.html'  %}
+{% endblock %}
+
 <div class="container mt-5">
+    <br>
+    <br>
+    <br>
+    <br>
     <h2 class="mb-4">Register Your Shop</h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
+
 </div>
-{% endblock %}
+

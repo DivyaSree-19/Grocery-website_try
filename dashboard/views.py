@@ -354,7 +354,7 @@ def view_shops(request):
 def edit_shops(request):
     shops = ShopRegistrationRequest.objects.all()  # Get all shops
     return render(request, 'dashboards/admin/edit_shop.html', {'shops': shops})
-
+from django.contrib.auth.models import Group
 
 def edit_shop_detail(request, shop_id):
     shop = get_object_or_404(ShopRegistrationRequest, id=shop_id)
@@ -362,8 +362,16 @@ def edit_shop_detail(request, shop_id):
     if request.method == "POST":
         form = ShopForm(request.POST, request.FILES, instance=shop)
         if form.is_valid():
-            form.save()
-            return redirect('edit_shops')  # Redirect back to shop list
+            updated_shop = form.save()
+
+            # Check if the shop is approved
+            if updated_shop.is_approved:
+                # Assuming `shop.user` is the user associated with the shop, 
+                # and you want to assign them to the "shop" group
+                shop.user.groups.add(Group.objects.get(name='Shop'))  # Assign to "shop" group
+                shop.user.save()  # Save the user after assigning the group
+
+            return redirect('edit_shops')  # Redirect back to the shop list
     else:
         form = ShopForm(instance=shop)
 

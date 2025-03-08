@@ -1,8 +1,22 @@
 
 
-{% block content %}
+{%include 'header.html'%}
+
+{% block label_top %}
+    {% include 'label_top.html' %}
+{% endblock %}
+
+{% block navbar %} 
+    {% include 'navbar.html'  %}
+{% endblock %}
 <div class="container mt-5 text-center">
+    <br>
+    <br>
+    <br>
+    <br>
     <h2>Thank You for Registering Your Shop!</h2>
     <p>Our team will review your submission and get back to you soon.</p>
+    
+    <a href="{% url 'home' %}" class="btn btn-primary">Return to Home</a>
 </div>
-{% endblock %}
+

@@ -82,49 +82,18 @@ WSGI_APPLICATION = 'Grocery_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-'''
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'grocery_shop',  # Replace with your database name
-        'USER': 'root',          # Replace with your MySQL username
-        'PASSWORD': 'root',      # Replace with your MySQL password
-        'HOST': '127.0.0.1',     # Use localhost or 127.0.0.1
-        'PORT': '3306',          # Default MySQL port
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
-'''
-
-import os
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Check if the app is running on Render
-if os.getenv('RENDER'):  
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / "db.sqlite3",
-        }
-    }
-else:  # Use MySQL locally
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'grocery_shop',  # Replace with your local MySQL database name
-            'USER': 'root',          # Your MySQL username
-            'PASSWORD': 'root',      # Your MySQL password
-            'HOST': '127.0.0.1',     # Localhost
-            'PORT': '3306',          # Default MySQL port
-        }
-    }
 
 
 
 
 #DATABASES = {
- #   'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+ # 'default': dj_database_url.config(default='sqlite:///db.sqlite3')
 #}
 
 # Password validation
