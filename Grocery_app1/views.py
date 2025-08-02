@@ -25,7 +25,7 @@ from django.http import HttpResponse
 def reset_admin_password(request):
     try:
         user = User.objects.get(username='admin')  # Or use email if that's how you login
-        user.set_password('new_secure_password123')  # Set your new password
+        user.set_password('admin123')  # Set your new password
         user.save()
         return HttpResponse("Password reset successfully.")
     except User.DoesNotExist:
