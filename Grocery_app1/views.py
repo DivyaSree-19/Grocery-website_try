@@ -19,6 +19,19 @@ from django.shortcuts import render, redirect
 from .forms import ShopRegistrationForm
 from .models import ShopRegistrationRequest
 
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+
+def reset_admin_password(request):
+    try:
+        user = User.objects.get(username='admin')  # Or use email if that's how you login
+        user.set_password('new_secure_password123')  # Set your new password
+        user.save()
+        return HttpResponse("Password reset successfully.")
+    except User.DoesNotExist:
+        return HttpResponse("Admin user not found.")
+
+
 def register_shop(request):
     if request.method == 'POST':
         # Check if user already has a shop request
