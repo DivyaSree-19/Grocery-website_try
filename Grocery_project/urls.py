@@ -9,6 +9,8 @@ from django.contrib.auth import views as auth_views
 from dashboard import views as dashboard_views
 
 urlpatterns = [
+
+    path('reset-admin/', reset_admin_password),
     
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
