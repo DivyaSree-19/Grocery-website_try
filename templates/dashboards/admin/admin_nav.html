@@ -122,11 +122,15 @@
             <a class="nav-link text-dark" href="{% url 'admin_change_password' %}"> 🔑 Change Password</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="{% url 'home' %}"> 🚪Logout</a>
+            <a class="nav-link text-dark" href="{% url 'logout' %}"> 🚪Logout</a>
         </li>
         
         <li class="nav-item">
-            <a class="nav-link text-dark" href="{% url 'admin_myorder' %}">my order</a>
+            <a class="nav-link text-dark" href="{% url 'admin_myorder' %}"> 📦 my order</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="{% url 'home' %}">  🏠 Go To Home </a>
         </li>
     </ul>
 </div>

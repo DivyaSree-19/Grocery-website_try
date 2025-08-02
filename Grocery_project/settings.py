@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Grocery_app1',
     'dashboard',
+    'anutrition',
 
 ]
 

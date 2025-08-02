@@ -56,13 +56,13 @@
     <h4 class="text-center py-3">Navigation</h4>
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link text-dark" href="{% url 'profile' %}">Dashboard</a>
+            <a class="nav-link text-dark" href="{% url 'profile' %}"> 📊 Dashboard</a>
         </li>
 
         <!--category-->
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Grocery Category
+                🛒 Grocery Category
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{% url 'add_category' %}">add</a></li>
@@ -75,7 +75,7 @@
         
         <li class="nav-item">
             <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Manage Product
+                📦  Manage Product
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{% url 'add_product' %}">Add</a></li>
@@ -85,25 +85,29 @@
             </ul>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="{% url 'shop_user' %}">Manage User</a>
+            <a class="nav-link text-dark" href="{% url 'shop_user' %}"> 👥 Manage User</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="{% url 'shop_order' %}">Manage Order</a>
+            <a class="nav-link text-dark" href="{% url 'shop_order' %}"> 🗂️ Manage Order</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="{% url 'shop_feedback' %}">Manage Feedback</a>
+            <a class="nav-link text-dark" href="{% url 'shop_feedback' %}"> 💬 Manage Feedback</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="{% url 'shop_password' %}">Change Password</a>
+            <a class="nav-link text-dark" href="{% url 'shop_password' %}"> 🔒 Change Password</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="{% url 'home' %}">Logout</a>
+            <a class="nav-link text-dark" href="{% url 'logout' %}"> 🚪Logout</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="{% url 'shop_shop' %}">Your Shops</a>
+            <a class="nav-link text-dark" href="{% url 'shop_shop' %}"> 🏬 Your Shops</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" href="{% url 'shop_myorder' %}">my order</a>
+            <a class="nav-link text-dark" href="{% url 'shop_myorder' %}"> 📦 my order</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-dark" href="{% url 'home' %}">  🏠 Go To Home </a>
         </li>
     </ul>
 </div>
@@ -111,5 +115,6 @@
 
 <!-- Toggle Button -->
 <button class="toggle-btn" id="toggleSidebar">☰</button>
+
 
 

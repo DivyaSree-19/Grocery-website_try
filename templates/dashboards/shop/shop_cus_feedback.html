@@ -1,0 +1,45 @@
+{%include 'header.html'%}
+
+{% block navbar_customer_shop %}
+    {% include 'dashboards/shop/shop_nav_customer.html' %}
+{% endblock %}
+
+<!-- Main Content -->
+<div class="main-content" id="content">
+    <div class="container mt-5">
+<br>
+<br>
+
+
+{% if reviews %}
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <strong>Product:</strong> {{ review.product.name }}<br>
+                <strong>Rating:</strong> {{ review.rating }} / 5<br>
+                <strong>Comment:</strong> {{ review.comment }}<br>
+                <strong>Reviewed on:</strong> {{ review.created_at|date:"F j, Y, g:i a" }}<br><br>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You haven't left any reviews yet.</p>
+{% endif %}
+
+     
+</div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // JavaScript for toggle functionality
+    const toggleBtn = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hide'); // Toggle visibility of sidebar
+        content.classList.toggle('full'); // Adjust content width
+        toggleBtn.classList.toggle('shift'); // Move toggle button
+    });
+</script>

@@ -1,0 +1,134 @@
+{% include 'header.html' %}
+{% block label_top %}
+    {% include 'label_top.html' %}
+{% endblock %}
+
+
+
+<!---************************************************************************************************************---->
+{% block navbar %}
+    {% include 'navbar.html'  %} 
+{% endblock %}
+
+<!---************************************************************************************************************---->
+<!-- sample.html -->
+{% load static %}
+{% load mathfilters %}
+
+    <style>
+        body {
+            background:#eff5ee;
+            margin: 220px;
+        }
+        .card {
+            margin-top: 20px;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+
+    
+    <div class="container-fluid py-4 text-white" style="background-color: white; min-height: 100vh;">
+        <h1 class="mb-4 text-center" style='color:black;'>Nutrition Information</h1>
+    
+
+        <form method="POST" class="form-inline mb-4">
+            {% csrf_token %}
+            <div class="container">
+              <div class="row">
+                <div class="col-12 col-md-8 offset-md-2 mb-2 mb-md-0">
+                  <input
+                    type="text"
+                    class="form-control w-100"
+                    name="query"
+                    value="{{ query }}"
+                    placeholder="Enter product name"
+                  />
+                </div>
+                <div class="col-12 col-md-2">
+                  <button type="submit" class="btn btn-success ">Search</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          
+  
+        {% if error %}
+            <p class="text-danger">{{ error }}</p>
+        {% endif %}
+    
+        <div class="row">
+            <!-- Left card -->
+            <div class="col-md-6 mb-4">
+                <div class="card text-dark">
+                    <div class="card-body">
+                        <h4 class="card-title">Nutritional Information for "{{ query }}"</h4>
+                        <ul class="list-group">
+                            <li class="list-group-item">🔥Calories: <span class="float-end">{{ calories }} kcal</span></li>
+                            <li class="list-group-item">🍗Protein: <span class="float-end">{{ protein }} g</span></li>
+                             <li class="list-group-item">🍞Carbohydrates: <span class="float-end">{{ carbohydrates }}</span></li>
+                            <li class="list-group-item">🧈Cholesterol: <span class="float-end">{{ cholesterol }}</span></li>
+                            <li class="list-group-item">🥩Saturated Fat: <span class="float-end">{{ saturated_fat }}</span></li>
+                            <li class="list-group-item">🥑Total Fat: <span class="float-end">{{ total_fat }}</span></li>
+                            <li class="list-group-item">🌾Fiber Content: <span class="float-end">{{ fiber }}</span></li>
+                             <li class="list-group-item">🍌Potassium: <span class="float-end">{{ potassium }}</span></li>
+                            <li class="list-group-item">🧂Sodium: <span class="float-end">{{ sodium }}</span></li>
+                            <li class="list-group-item">🍬Sugar: <span class="float-end">{{ sugar }}</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Right card -->
+            <div class="col-md-6 mb-4">
+                <div class="card text-dark">
+                    <div class="card-body">
+                        <h4 class="mb-4">To burn {{ calories }} calories you will have to</h4>
+    
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="{% static 'images/running.png' %}" alt="Jog" width="60">
+                            <div class="ms-3">
+                                <h5>Jog</h5>
+                                <p>You will have to jog for 
+                                    <strong>{{ calories|div:378|mul:60|floatformat:0 }}</strong> Minutes
+                                </p>
+                            </div>
+                        </div>
+    
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="{% static 'images/yoga.png' %}" alt="Yoga" width="60">
+                            <div class="ms-3">
+                                <h5>Power Yoga</h5>
+                                <p>You will have to power yoga for 
+                                    <strong>{{ calories|div:223|mul:60|floatformat:0 }}</strong> Minutes
+                                </p>
+                            </div>
+                        </div>
+    
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="{% static 'images/weightlifter.png' %}" alt="Gym" width="60">
+                            <div class="ms-3">
+                                <h5>Gym Workout</h5>
+                                <p>You will have to lift weights for 
+                                    <strong>{{ calories|div:483|mul:60|floatformat:0 }}</strong> Minutes
+                                </p>
+                            </div>
+                        </div>
+    
+                        <div class="d-flex align-items-center">
+                            <img src="{% static 'images/walking.png' %}" alt="Brisk Walk" width="60">
+                            <div class="ms-3">
+                                <h5>Brisk Walk</h5>
+                                <p>You will have to brisk walk for 
+                                    <strong>{{ calories|div:294|mul:60|floatformat:0 }}</strong> Minutes
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    

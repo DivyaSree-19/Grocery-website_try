@@ -23,6 +23,9 @@
             </tr>
             {% for order in orders %}
             <tr>
+                <td>
+                    <a href="{% url 'cus_order_detail' order.id %}">{{ order.id }}</a>
+                </td>
                 <td>{{ order.id }}</td>
                 <td>{{ order.status }}</td>
                 <td>₹{{ order.total_price }}</td>

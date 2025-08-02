@@ -1,79 +1,8 @@
 {%include 'header.html'%}
 
-
-<style>
-    /* Sidebar styles */
-    .sidebar {
-        width: 300px;
-        height: 100vh;
-        background-color: #f8f9fa;
-        position: fixed;
-        top: 0;
-        left: 0; /* Initially visible */
-        transition: all 0.3s ease;
-        z-index: 1000;
-    }
-    .sidebar.hide {
-        left: -300px; /* Hide sidebar */
-    }
-    /* Main content styles */
-    .main-content {
-        margin-left: 300px; /* Adjust for sidebar */
-        transition: all 0.3s ease;
-    }
-    .main-content.full {
-        margin-left: 0; /* Expand when sidebar is hidden */
-    }
-    /* Toggle button styles */
-    .toggle-btn {
-        position: fixed;
-        top: 20px;
-        left: 320px; /* Adjusted for sidebar */
-        z-index: 1100;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    .toggle-btn.shift {
-        left: 20px; /* Move button closer when sidebar is hidden */
-    }
-</style>
-
-
- <!-- Sidebar -->
- <div class="sidebar" id="sidebar">
-    <h4 class="text-center py-3">Navigation</h4>
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Dashboard</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Orders</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Shops</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Customers</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="#">Pending</a>
-        </li>
-        <li class="nav-item">
-          
-            <a class="nav-link text-dark" href="{% url 'profile' %}" style="background-color:red;">move to dashboard</a>
-            
-        </li>
-    </ul>
-</div>
-
-
-<!-- Toggle Button -->
-<button class="toggle-btn" id="toggleSidebar">☰</button>
+{% block navbar_customer_shop %}
+    {% include 'dashboards/shop/shop_nav_customer.html' %}
+{% endblock %}
 
 <!-- Main Content -->
 <div class="main-content" id="content">
@@ -81,7 +10,7 @@
 <br>
         <h1>Customer Dashboard</h1>
 
-        <h1>Profile: {{ user.username }}</h1>
+        <h1>Profile: {{ user.username }}hekk</h1>
 
         {% if orders %}
         <p>Orders Found</p>
@@ -94,6 +23,9 @@
             </tr>
             {% for order in orders %}
             <tr>
+                <td>
+                    <a href="{% url 'shop_cus_order_detail' order.id %}">{{ order.id }}</a>
+                </td>
                 <td>{{ order.id }}</td>
                 <td>{{ order.status }}</td>
                 <td>₹{{ order.total_price }}</td>
@@ -105,12 +37,7 @@
         <p>No orders found.</p>
         <p>Debug: {{ orders }}</p>
     {% endif %}
-    
-
-    
-        
-        <h1>Main Content</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod vehicula purus.</p>
+   
     </div>
 </div>
 

@@ -7,6 +7,7 @@ from Grocery_app1 import views
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import views as auth_views
 from dashboard import views as dashboard_views
+from anutrition import views as nutrition_views
 
 urlpatterns = [
 
@@ -96,11 +97,18 @@ path('update/', dashboard_views.update_user_details, name='update_user_details')
 path('change-password/', dashboard_views.customer_change_password, name='customer_change_password'),
 
 path('shop-owner/shops/', dashboard_views.cus_shops, name='cus_shops'),
-path('order/<int:order_id>/', dashboard_views.cus_order_detail, name='cus_order_detail'),
+path('cus/order/<int:order_id>/', dashboard_views.cus_order_detail, name='cus_order_detail'),
 path('cus/feedback/', dashboard_views.cus_feedback, name='cus_feedback'),
 path('cus/update/', dashboard_views.cus_update_user_details, name='cus_update_user_details'),
 path('cus/change-password/', dashboard_views.cus_change_password, name='cus_change_password'),
 
+#shop customer dashboard
+path('shop-owner/shops/customer', dashboard_views.shop_shops, name='shop_shops'),
+#path('order/<int:order_id>/', dashboard_views.cus_order_detail, name='cus_order_detail'),
+path('shop-owner/feedback/customer', dashboard_views.shop_cus_feedback, name='shop_cus_feedback'),
+path('shop-owner/update/customer', dashboard_views.shop_cus_update_user_details, name='shop_cus_update_user_details'),
+path('shop-owner/cus/change-password/customer', dashboard_views.shop_cus_change_password, name='shop_cus_change_password'),
+path('shop-owner/order/<int:order_id>/customer', dashboard_views.shop_cus_order_detail, name='shop_cus_order_detail'),
 #  path('categories/delete/<int:id>/', dashboard_views.category_delete, name='category_delete'),
     
     
@@ -135,6 +143,9 @@ path('cus/change-password/', dashboard_views.cus_change_password, name='cus_chan
     path('products/edit/<int:pk>/', dashboard_views.edit_product, name='edit_product'),
     path('products/delete/', dashboard_views.delete_products_view, name='delete_products'),
     path('products/delete/<int:pk>/', dashboard_views.delete_product, name='delete_product'),
+    
+    path('Nutrition/', nutrition_views.nutrition, name='nutrition'),
+     
 ]
 
 if settings.DEBUG:

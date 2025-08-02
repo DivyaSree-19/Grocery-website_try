@@ -203,10 +203,81 @@ def cus_order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
     order_items = OrderItem.objects.filter(order=order)  # Fetch items
 
-    return render(request, 'dashboards/order_detail.html', {
+    return render(request, 'dashboards/cus_order_detail.html', {
         'order': order,
         'order_items': order_items,  # Pass items to template
     })
+
+
+
+###-----------------------------------for shop my order dashboard
+
+
+@login_required
+def shop_shops(request):
+    # Get all orders for the logged-in user
+    orders = Order.objects.filter(user=request.user)
+
+    # Get all ordered products along with their shop details
+    ordered_products = OrderItem.objects.filter(order__user=request.user).select_related('product', 'order__shop')
+
+    return render(request, 'dashboards/shop/shop_shops.html', {
+        'ordered_products': ordered_products,
+    })
+#shops
+
+@login_required
+def shop_cus_feedback(request):
+    # Fetch all reviews for the logged-in user
+    reviews = Review.objects.filter(user=request.user).order_by('-created_at')
+
+    return render(request, 'dashboards/shop/shop_cus_feedback.html', {'reviews': reviews})
+
+from Grocery_app1.forms import UserDetailUpdateForm
+@login_required
+
+@login_required
+def shop_cus_update_user_details(request):
+    user = request.user
+    reviews = Review.objects.filter(user=user)
+
+    if request.method == 'POST':
+        form = UserDetailUpdateForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()  # Save updated details
+            messages.success(request, 'Your details were successfully updated!')
+            return redirect('shop_myorder')  # Redirect to the profile page or wherever you need
+    else:
+        form = UserDetailUpdateForm(instance=user)  # Prepopulate form with current details
+
+    return render(request, 'dashboards/shop/shop_cus_update_user_details.html', {'form': form, 'reviews': reviews})
+
+
+@login_required
+def shop_cus_change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)  # Keeps customer logged in
+            messages.success(request, "Your password has been changed successfully!")
+            return redirect('profile')  # Redirect to customer's profile page
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = PasswordChangeForm(request.user)
+
+    return render(request, 'dashboards/shop/shop_cus_change_password.html', {'form': form})
+
+def shop_cus_order_detail(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    order_items = OrderItem.objects.filter(order=order)  # Fetch items
+
+    return render(request, 'dashboards/shop/shop_cus_order_detail.html', {
+        'order': order,
+        'order_items': order_items,  # Pass items to template
+    })
+
 
 @login_required
 def profile(request):
